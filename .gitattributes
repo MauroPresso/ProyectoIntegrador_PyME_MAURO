@@ -1,26 +1,18 @@
-﻿# ============================================================
-# Proyecto Integrador BDD - Reglas de finales de linea
-# ============================================================
-
-# Regla general
 * text=auto
 
-# Scripts SQL Server / PowerShell / documentacion de texto
 *.sql text eol=crlf
 *.ps1 text eol=crlf
 *.txt text eol=crlf
-*.md  text eol=crlf
+*.md text eol=crlf
 
-# Archivos binarios: no normalizar finales de linea
-*.pdf  binary
-*.png  binary
-*.jpg  binary
+*.pdf binary
+*.png binary
+*.jpg binary
 *.jpeg binary
 *.docx binary
 *.xlsx binary
 *.pptx binary
 
-# Archivos SQL Server fisicos / backups
 *.mdf binary
 *.ldf binary
 *.ndf binary
