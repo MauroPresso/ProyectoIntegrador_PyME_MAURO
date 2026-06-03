@@ -1,0 +1,81 @@
+# ============================================================
+# Proyecto Integrador BDD - BaseDeDatos_PyME
+# Archivos que NO deben ser trackeados por Git
+# ============================================================
+
+
+# ------------------------------------------------------------
+# SQL Server - archivos físicos de base de datos
+# ------------------------------------------------------------
+*.mdf
+*.ldf
+*.ndf
+
+
+# ------------------------------------------------------------
+# SQL Server - backups y logs transaccionales
+# ------------------------------------------------------------
+*.bak
+*.trn
+*.diff
+*.bkp
+
+
+# ------------------------------------------------------------
+# Carpeta de backups locales
+# ------------------------------------------------------------
+11_Backups/**
+!11_Backups/
+!11_Backups/DELL/
+!11_Backups/LENOVO/
+!11_Backups/**/.gitkeep
+
+
+# ------------------------------------------------------------
+# Carpeta vieja o experimental que puede contener archivos pesados
+# ------------------------------------------------------------
+99_Borradores_Experimental/Pruebas_SQL/BaseDeDatos_PyME_OLD/**
+
+
+# ------------------------------------------------------------
+# Archivos temporales de SQL Server / SSMS / ejecución local
+# ------------------------------------------------------------
+*.tmp
+*.temp
+*.log
+*.sqlplan
+
+
+# ------------------------------------------------------------
+# Archivos locales de Visual Studio / VS Code / configuración de usuario
+# ------------------------------------------------------------
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+
+# ------------------------------------------------------------
+# Archivos temporales de Office
+# ------------------------------------------------------------
+~$*.docx
+~$*.xlsx
+~$*.pptx
+
+
+# ------------------------------------------------------------
+# Archivos del sistema operativo
+# ------------------------------------------------------------
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+
+# ------------------------------------------------------------
+# Carpetas de caché
+# ------------------------------------------------------------
+__pycache__/
+*.pyc
+.cache/
