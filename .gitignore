@@ -79,3 +79,6 @@ Desktop.ini
 __pycache__/
 *.pyc
 .cache/
+
+# SQL Server - archivos locales de datos de cada PC
+_LOCAL_SQLSERVER_DATA/**
