@@ -1,26 +1,23 @@
 /* ============================================================
-   SCRIPT COMPLETO - CREACIÓN DE TABLAS
-   Proyecto: Gestión de Ventas y Facturación PyME
+   CREAR_TABLAS.SQL
+   Proyecto Integrador BDD - PyME Genérica
    Motor: SQL Server
-   Base de datos sugerida: BaseDeDatos_PyME
+   Base de datos: BaseDeDatos_PyME
+   Ubicación: 04_SQLServer_Modelo_Fisico\02_Creacion_de_tablas
    ============================================================ */
 
 USE BaseDeDatos_PyME;
 GO
-
 SET NOCOUNT ON;
 GO
 
-/* ============================================================
-   1. PROVINCIAS
-   ============================================================ */
+/* 1. PROVINCIAS */
 IF OBJECT_ID(N'dbo.PROVINCIAS', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.PROVINCIAS
     (
         id_provincia INT IDENTITY(1,1) NOT NULL,
         nombre VARCHAR(100) NOT NULL,
-
         CONSTRAINT PK_PROVINCIAS PRIMARY KEY (id_provincia),
         CONSTRAINT UQ_PROVINCIAS_nombre UNIQUE (nombre),
         CONSTRAINT CK_PROVINCIAS_nombre_no_vacio CHECK (LEN(LTRIM(RTRIM(nombre))) > 0)
@@ -29,9 +26,7 @@ BEGIN
 END
 GO
 
-/* ============================================================
-   2. LOCALIDADES
-   ============================================================ */
+/* 2. LOCALIDADES */
 IF OBJECT_ID(N'dbo.LOCALIDADES', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.LOCALIDADES
@@ -40,7 +35,6 @@ BEGIN
         id_provincia INT NOT NULL,
         nombre VARCHAR(100) NOT NULL,
         codigo_postal VARCHAR(20) NOT NULL,
-
         CONSTRAINT PK_LOCALIDADES PRIMARY KEY (id_localidad),
         CONSTRAINT UQ_LOCALIDADES_nombre_cp UNIQUE (nombre, codigo_postal),
         CONSTRAINT FK_LOCALIDADES_PROVINCIAS FOREIGN KEY (id_provincia) REFERENCES dbo.PROVINCIAS(id_provincia),
@@ -51,9 +45,7 @@ BEGIN
 END
 GO
 
-/* ============================================================
-   3. TIPOS_CLIENTE (fiscal/comercial)
-   ============================================================ */
+/* 3. TIPOS_CLIENTE */
 IF OBJECT_ID(N'dbo.TIPOS_CLIENTE', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.TIPOS_CLIENTE
@@ -61,7 +53,6 @@ BEGIN
         id_tipo_cliente INT IDENTITY(1,1) NOT NULL,
         tipo VARCHAR(50) NOT NULL,
         descripcion VARCHAR(150) NULL,
-
         CONSTRAINT PK_TIPOS_CLIENTE PRIMARY KEY (id_tipo_cliente),
         CONSTRAINT UQ_TIPOS_CLIENTE_tipo UNIQUE (tipo),
         CONSTRAINT CK_TIPOS_CLIENTE_tipo_no_vacio CHECK (LEN(LTRIM(RTRIM(tipo))) > 0)
@@ -70,9 +61,7 @@ BEGIN
 END
 GO
 
-/* ============================================================
-   4. TIPOS_DOCUMENTO (identidad)
-   ============================================================ */
+/* 4. TIPOS_DOCUMENTO */
 IF OBJECT_ID(N'dbo.TIPOS_DOCUMENTO', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.TIPOS_DOCUMENTO
@@ -80,7 +69,6 @@ BEGIN
         id_tipo_documento INT IDENTITY(1,1) NOT NULL,
         tipo VARCHAR(50) NOT NULL,
         descripcion VARCHAR(150) NULL,
-
         CONSTRAINT PK_TIPOS_DOCUMENTO PRIMARY KEY (id_tipo_documento),
         CONSTRAINT UQ_TIPOS_DOCUMENTO_tipo UNIQUE (tipo),
         CONSTRAINT CK_TIPOS_DOCUMENTO_tipo_no_vacio CHECK (LEN(LTRIM(RTRIM(tipo))) > 0)
@@ -89,9 +77,7 @@ BEGIN
 END
 GO
 
-/* ============================================================
-   5. ROLES (seguridad)
-   ============================================================ */
+/* 5. ROLES */
 IF OBJECT_ID(N'dbo.ROLES', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.ROLES
@@ -99,7 +85,6 @@ BEGIN
         id_rol INT IDENTITY(1,1) NOT NULL,
         rol VARCHAR(50) NOT NULL,
         descripcion VARCHAR(150) NULL,
-
         CONSTRAINT PK_ROLES PRIMARY KEY (id_rol),
         CONSTRAINT UQ_ROLES_rol UNIQUE (rol),
         CONSTRAINT CK_ROLES_rol_no_vacio CHECK (LEN(LTRIM(RTRIM(rol))) > 0)
@@ -108,9 +93,7 @@ BEGIN
 END
 GO
 
-/* ============================================================
-   6. ESTADOS_USUARIOS
-   ============================================================ */
+/* 6. ESTADOS_USUARIOS */
 IF OBJECT_ID(N'dbo.ESTADOS_USUARIOS', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.ESTADOS_USUARIOS
@@ -118,7 +101,6 @@ BEGIN
         id_estado_usuario INT IDENTITY(1,1) NOT NULL,
         estado VARCHAR(50) NOT NULL,
         descripcion VARCHAR(150) NULL,
-
         CONSTRAINT PK_ESTADOS_USUARIOS PRIMARY KEY (id_estado_usuario),
         CONSTRAINT UQ_ESTADOS_USUARIOS_estado UNIQUE (estado),
         CONSTRAINT CK_ESTADOS_USUARIOS_estado_no_vacio CHECK (LEN(LTRIM(RTRIM(estado))) > 0)
@@ -127,9 +109,7 @@ BEGIN
 END
 GO
 
-/* ============================================================
-   7. ESTADOS_CLIENTES
-   ============================================================ */
+/* 7. ESTADOS_CLIENTES */
 IF OBJECT_ID(N'dbo.ESTADOS_CLIENTES', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.ESTADOS_CLIENTES
@@ -137,7 +117,6 @@ BEGIN
         id_estado_cliente INT IDENTITY(1,1) NOT NULL,
         estado VARCHAR(50) NOT NULL,
         descripcion VARCHAR(150) NULL,
-
         CONSTRAINT PK_ESTADOS_CLIENTES PRIMARY KEY (id_estado_cliente),
         CONSTRAINT UQ_ESTADOS_CLIENTES_estado UNIQUE (estado),
         CONSTRAINT CK_ESTADOS_CLIENTES_estado_no_vacio CHECK (LEN(LTRIM(RTRIM(estado))) > 0)
@@ -146,9 +125,7 @@ BEGIN
 END
 GO
 
-/* ============================================================
-   8. CLIENTES
-   ============================================================ */
+/* 8. CLIENTES */
 IF OBJECT_ID(N'dbo.CLIENTES', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.CLIENTES
@@ -166,7 +143,6 @@ BEGIN
         direccion VARCHAR(150) NULL,
         telefono VARCHAR(30) NULL,
         email VARCHAR(100) NULL,
-
         CONSTRAINT PK_CLIENTES PRIMARY KEY (id_cliente),
         CONSTRAINT UQ_CLIENTES_numero_documento UNIQUE (numero_documento),
         CONSTRAINT FK_CLIENTES_LOCALIDADES FOREIGN KEY (id_localidad) REFERENCES dbo.LOCALIDADES(id_localidad),
@@ -174,7 +150,7 @@ BEGIN
         CONSTRAINT FK_CLIENTES_TIPOS_DOCUMENTO FOREIGN KEY (id_tipo_documento) REFERENCES dbo.TIPOS_DOCUMENTO(id_tipo_documento),
         CONSTRAINT FK_CLIENTES_ESTADOS_CLIENTES FOREIGN KEY (id_estado_cliente) REFERENCES dbo.ESTADOS_CLIENTES(id_estado_cliente),
         CONSTRAINT CK_CLIENTES_numero_documento_no_vacio CHECK (LEN(LTRIM(RTRIM(numero_documento))) > 0),
-        CONSTRAINT CK_CLIENTES_tipo_persona CHECK (tipo_persona IN ('J', 'F')),
+        CONSTRAINT CK_CLIENTES_tipo_persona CHECK (tipo_persona IN ('F', 'J')),
         CONSTRAINT CK_CLIENTES_datos_segun_tipo CHECK (
             (tipo_persona = 'F' AND nombre IS NOT NULL AND apellido IS NOT NULL AND razon_social IS NULL) OR
             (tipo_persona = 'J' AND razon_social IS NOT NULL AND nombre IS NULL AND apellido IS NULL)
@@ -184,9 +160,7 @@ BEGIN
 END
 GO
 
-/* ============================================================
-   9. USUARIOS (operadores del sistema)
-   ============================================================ */
+/* 9. USUARIOS */
 IF OBJECT_ID(N'dbo.USUARIOS', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.USUARIOS
@@ -198,7 +172,6 @@ BEGIN
         clave_hash VARCHAR(255) NOT NULL,
         nombre_completo VARCHAR(100) NOT NULL,
         email VARCHAR(100) NOT NULL,
-
         CONSTRAINT PK_USUARIOS PRIMARY KEY (id_usuario),
         CONSTRAINT UQ_USUARIOS_nombre_usuario UNIQUE (nombre_usuario),
         CONSTRAINT UQ_USUARIOS_email UNIQUE (email),
@@ -213,9 +186,7 @@ BEGIN
 END
 GO
 
-/* ============================================================
-   10. FORMAS_PAGO
-   ============================================================ */
+/* 10. FORMAS_PAGO */
 IF OBJECT_ID(N'dbo.FORMAS_PAGO', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.FORMAS_PAGO
@@ -224,18 +195,14 @@ BEGIN
         forma_pago VARCHAR(50) NOT NULL,
         descripcion VARCHAR(150) NULL,
         activo BIT NOT NULL CONSTRAINT DF_FORMAS_PAGO_activo DEFAULT (1),
-
         CONSTRAINT PK_FORMAS_PAGO PRIMARY KEY (id_forma_pago),
-        CONSTRAINT UQ_FORMAS_PAGO_forma_pago UNIQUE (forma_pago),
         CONSTRAINT CK_FORMAS_PAGO_forma_pago_no_vacio CHECK (LEN(LTRIM(RTRIM(forma_pago))) > 0)
     );
     PRINT 'Tabla FORMAS_PAGO creada.';
 END
 GO
 
-/* ============================================================
-   11. ESTADOS_FACTURA
-   ============================================================ */
+/* 11. ESTADOS_FACTURA */
 IF OBJECT_ID(N'dbo.ESTADOS_FACTURA', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.ESTADOS_FACTURA
@@ -243,7 +210,6 @@ BEGIN
         id_estado_factura INT IDENTITY(1,1) NOT NULL,
         estado VARCHAR(50) NOT NULL,
         descripcion VARCHAR(150) NULL,
-
         CONSTRAINT PK_ESTADOS_FACTURA PRIMARY KEY (id_estado_factura),
         CONSTRAINT UQ_ESTADOS_FACTURA_estado UNIQUE (estado),
         CONSTRAINT CK_ESTADOS_FACTURA_estado_no_vacio CHECK (LEN(LTRIM(RTRIM(estado))) > 0)
@@ -252,9 +218,7 @@ BEGIN
 END
 GO
 
-/* ============================================================
-   12. TIPOS_FACTURA (tipo fiscal)
-   ============================================================ */
+/* 12. TIPOS_FACTURA */
 IF OBJECT_ID(N'dbo.TIPOS_FACTURA', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.TIPOS_FACTURA
@@ -262,7 +226,6 @@ BEGIN
         id_tipo_factura INT IDENTITY(1,1) NOT NULL,
         tipo VARCHAR(50) NOT NULL,
         descripcion VARCHAR(150) NULL,
-
         CONSTRAINT PK_TIPOS_FACTURA PRIMARY KEY (id_tipo_factura),
         CONSTRAINT UQ_TIPOS_FACTURA_tipo UNIQUE (tipo),
         CONSTRAINT CK_TIPOS_FACTURA_tipo_no_vacio CHECK (LEN(LTRIM(RTRIM(tipo))) > 0)
@@ -271,9 +234,7 @@ BEGIN
 END
 GO
 
-/* ============================================================
-   13. TIPOS_OPERACION_FACTURA (venta, nota crédito, etc.)
-   ============================================================ */
+/* 13. TIPOS_OPERACION_FACTURA */
 IF OBJECT_ID(N'dbo.TIPOS_OPERACION_FACTURA', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.TIPOS_OPERACION_FACTURA
@@ -281,7 +242,6 @@ BEGIN
         id_tipo_operacion_factura INT IDENTITY(1,1) NOT NULL,
         operacion VARCHAR(50) NOT NULL,
         descripcion VARCHAR(150) NULL,
-
         CONSTRAINT PK_TIPOS_OPERACION_FACTURA PRIMARY KEY (id_tipo_operacion_factura),
         CONSTRAINT UQ_TIPOS_OPERACION_FACTURA_operacion UNIQUE (operacion),
         CONSTRAINT CK_TIPOS_OPERACION_FACTURA_operacion_no_vacio CHECK (LEN(LTRIM(RTRIM(operacion))) > 0)
@@ -290,9 +250,7 @@ BEGIN
 END
 GO
 
-/* ============================================================
-   14. CATEGORIAS_PRODUCTO
-   ============================================================ */
+/* 14. CATEGORIAS_PRODUCTO */
 IF OBJECT_ID(N'dbo.CATEGORIAS_PRODUCTO', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.CATEGORIAS_PRODUCTO
@@ -301,18 +259,14 @@ BEGIN
         nombre VARCHAR(100) NOT NULL,
         descripcion VARCHAR(150) NULL,
         activo BIT NOT NULL CONSTRAINT DF_CATEGORIAS_PRODUCTO_activo DEFAULT (1),
-
         CONSTRAINT PK_CATEGORIAS_PRODUCTO PRIMARY KEY (id_categoria),
-        CONSTRAINT UQ_CATEGORIAS_PRODUCTO_nombre UNIQUE (nombre),
         CONSTRAINT CK_CATEGORIAS_PRODUCTO_nombre_no_vacio CHECK (LEN(LTRIM(RTRIM(nombre))) > 0)
     );
     PRINT 'Tabla CATEGORIAS_PRODUCTO creada.';
 END
 GO
 
-/* ============================================================
-   15. IMPUESTOS
-   ============================================================ */
+/* 15. IMPUESTOS */
 IF OBJECT_ID(N'dbo.IMPUESTOS', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.IMPUESTOS
@@ -322,7 +276,6 @@ BEGIN
         porcentaje DECIMAL(5,2) NOT NULL,
         descripcion VARCHAR(150) NULL,
         activo BIT NOT NULL CONSTRAINT DF_IMPUESTOS_activo DEFAULT (1),
-
         CONSTRAINT PK_IMPUESTOS PRIMARY KEY (id_impuesto),
         CONSTRAINT CK_IMPUESTOS_porcentaje CHECK (porcentaje >= 0),
         CONSTRAINT CK_IMPUESTOS_impuesto_no_vacio CHECK (LEN(LTRIM(RTRIM(impuesto))) > 0)
@@ -331,9 +284,7 @@ BEGIN
 END
 GO
 
-/* ============================================================
-   16. PRODUCTOS_SERVICIOS
-   ============================================================ */
+/* 16. PRODUCTOS_SERVICIOS */
 IF OBJECT_ID(N'dbo.PRODUCTOS_SERVICIOS', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.PRODUCTOS_SERVICIOS
@@ -346,7 +297,6 @@ BEGIN
         precio_unitario_actual DECIMAL(12,2) NOT NULL,
         stock_actual INT NOT NULL CONSTRAINT DF_PRODUCTOS_SERVICIOS_stock_actual DEFAULT (0),
         activo BIT NOT NULL CONSTRAINT DF_PRODUCTOS_SERVICIOS_activo DEFAULT (1),
-
         CONSTRAINT PK_PRODUCTOS_SERVICIOS PRIMARY KEY (id_producto_servicio),
         CONSTRAINT FK_PRODUCTOS_SERVICIOS_CATEGORIAS FOREIGN KEY (id_categoria) REFERENCES dbo.CATEGORIAS_PRODUCTO(id_categoria),
         CONSTRAINT FK_PRODUCTOS_SERVICIOS_IMPUESTOS FOREIGN KEY (id_impuesto) REFERENCES dbo.IMPUESTOS(id_impuesto),
@@ -358,9 +308,7 @@ BEGIN
 END
 GO
 
-/* ============================================================
-   17. FACTURAS (cabecera)
-   ============================================================ */
+/* 17. FACTURAS */
 IF OBJECT_ID(N'dbo.FACTURAS', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.FACTURAS
@@ -379,7 +327,6 @@ BEGIN
         total_recargos DECIMAL(12,2) NOT NULL CONSTRAINT DF_FACTURAS_total_recargos DEFAULT (0),
         total DECIMAL(12,2) NOT NULL CONSTRAINT DF_FACTURAS_total DEFAULT (0),
         observaciones VARCHAR(250) NULL,
-
         CONSTRAINT PK_FACTURAS PRIMARY KEY (id_factura),
         CONSTRAINT UQ_FACTURAS_numero_factura UNIQUE (numero_factura),
         CONSTRAINT FK_FACTURAS_CLIENTES FOREIGN KEY (id_cliente) REFERENCES dbo.CLIENTES(id_cliente),
@@ -388,19 +335,17 @@ BEGIN
         CONSTRAINT FK_FACTURAS_TIPOS_FACTURA FOREIGN KEY (id_tipo_factura) REFERENCES dbo.TIPOS_FACTURA(id_tipo_factura),
         CONSTRAINT FK_FACTURAS_TIPOS_OPERACION FOREIGN KEY (id_tipo_operacion_factura) REFERENCES dbo.TIPOS_OPERACION_FACTURA(id_tipo_operacion_factura),
         CONSTRAINT CK_FACTURAS_numero_factura_no_vacio CHECK (LEN(LTRIM(RTRIM(numero_factura))) > 0),
-        CONSTRAINT CK_FACTURAS_total CHECK (total >= 0),
         CONSTRAINT CK_FACTURAS_total_neto CHECK (total_neto >= 0),
         CONSTRAINT CK_FACTURAS_total_impuestos CHECK (total_impuestos >= 0),
         CONSTRAINT CK_FACTURAS_total_descuentos CHECK (total_descuentos >= 0),
-        CONSTRAINT CK_FACTURAS_total_recargos CHECK (total_recargos >= 0)
+        CONSTRAINT CK_FACTURAS_total_recargos CHECK (total_recargos >= 0),
+        CONSTRAINT CK_FACTURAS_total CHECK (total >= 0)
     );
     PRINT 'Tabla FACTURAS creada.';
 END
 GO
 
-/* ============================================================
-   18. DETALLES_FACTURA
-   ============================================================ */
+/* 18. DETALLES_FACTURA */
 IF OBJECT_ID(N'dbo.DETALLES_FACTURA', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.DETALLES_FACTURA
@@ -414,7 +359,6 @@ BEGIN
         porcentaje_impuesto_facturado DECIMAL(5,2) NOT NULL,
         importe_impuesto DECIMAL(12,2) NOT NULL,
         subtotal_con_impuesto DECIMAL(12,2) NOT NULL,
-
         CONSTRAINT PK_DETALLES_FACTURA PRIMARY KEY (id_detalle_factura),
         CONSTRAINT FK_DETALLES_FACTURA_FACTURAS FOREIGN KEY (id_factura) REFERENCES dbo.FACTURAS(id_factura),
         CONSTRAINT FK_DETALLES_FACTURA_PRODUCTOS FOREIGN KEY (id_producto_servicio) REFERENCES dbo.PRODUCTOS_SERVICIOS(id_producto_servicio),
@@ -429,9 +373,7 @@ BEGIN
 END
 GO
 
-/* ============================================================
-   19. COMPROBANTES_PAGO (pagos mixtos o fraccionados)
-   ============================================================ */
+/* 19. COMPROBANTES_PAGO - Relación FACTURAS 1 a 1 COMPROBANTES_PAGO */
 IF OBJECT_ID(N'dbo.COMPROBANTES_PAGO', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.COMPROBANTES_PAGO
@@ -443,9 +385,9 @@ BEGIN
         monto DECIMAL(12,2) NOT NULL,
         numero_referencia VARCHAR(100) NULL,
         observaciones VARCHAR(150) NULL,
-
         CONSTRAINT PK_COMPROBANTES_PAGO PRIMARY KEY (id_comprobante_pago),
         CONSTRAINT FK_COMPROBANTES_PAGO_FACTURAS FOREIGN KEY (id_factura) REFERENCES dbo.FACTURAS(id_factura),
+        CONSTRAINT UQ_COMPROBANTES_PAGO_FACTURAS UNIQUE (id_factura),
         CONSTRAINT FK_COMPROBANTES_PAGO_FORMAS_PAGO FOREIGN KEY (id_forma_pago) REFERENCES dbo.FORMAS_PAGO(id_forma_pago),
         CONSTRAINT CK_COMPROBANTES_PAGO_monto CHECK (monto > 0)
     );
@@ -453,9 +395,7 @@ BEGIN
 END
 GO
 
-/* ============================================================
-   20. AUDITORIA_FACTURA (historial de cambios)
-   ============================================================ */
+/* 20. AUDITORIA_FACTURA */
 IF OBJECT_ID(N'dbo.AUDITORIA_FACTURA', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.AUDITORIA_FACTURA
@@ -466,7 +406,6 @@ BEGIN
         accion VARCHAR(50) NOT NULL,
         fecha DATETIME NOT NULL CONSTRAINT DF_AUDITORIA_FACTURA_fecha DEFAULT (GETDATE()),
         detalle VARCHAR(250) NULL,
-
         CONSTRAINT PK_AUDITORIA_FACTURA PRIMARY KEY (id_auditoria),
         CONSTRAINT FK_AUDITORIA_FACTURA_FACTURAS FOREIGN KEY (id_factura) REFERENCES dbo.FACTURAS(id_factura),
         CONSTRAINT FK_AUDITORIA_FACTURA_USUARIOS FOREIGN KEY (id_usuario) REFERENCES dbo.USUARIOS(id_usuario),
@@ -476,9 +415,7 @@ BEGIN
 END
 GO
 
-/* ============================================================
-   21. DESCUENTOS_FACTURA (bonificaciones globales)
-   ============================================================ */
+/* 21. DESCUENTOS_FACTURA */
 IF OBJECT_ID(N'dbo.DESCUENTOS_FACTURA', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.DESCUENTOS_FACTURA
@@ -488,7 +425,6 @@ BEGIN
         descripcion VARCHAR(150) NOT NULL,
         porcentaje DECIMAL(5,2) NULL,
         monto DECIMAL(12,2) NOT NULL,
-
         CONSTRAINT PK_DESCUENTOS_FACTURA PRIMARY KEY (id_descuento_factura),
         CONSTRAINT FK_DESCUENTOS_FACTURA_FACTURAS FOREIGN KEY (id_factura) REFERENCES dbo.FACTURAS(id_factura),
         CONSTRAINT CK_DESCUENTOS_FACTURA_descripcion_no_vacia CHECK (LEN(LTRIM(RTRIM(descripcion))) > 0),
@@ -499,9 +435,7 @@ BEGIN
 END
 GO
 
-/* ============================================================
-   22. RECARGOS_FACTURA (intereses o envíos)
-   ============================================================ */
+/* 22. RECARGOS_FACTURA */
 IF OBJECT_ID(N'dbo.RECARGOS_FACTURA', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.RECARGOS_FACTURA
@@ -511,7 +445,6 @@ BEGIN
         descripcion VARCHAR(150) NOT NULL,
         porcentaje DECIMAL(5,2) NULL,
         monto DECIMAL(12,2) NOT NULL,
-
         CONSTRAINT PK_RECARGOS_FACTURA PRIMARY KEY (id_recargo_factura),
         CONSTRAINT FK_RECARGOS_FACTURA_FACTURAS FOREIGN KEY (id_factura) REFERENCES dbo.FACTURAS(id_factura),
         CONSTRAINT CK_RECARGOS_FACTURA_descripcion_no_vacia CHECK (LEN(LTRIM(RTRIM(descripcion))) > 0),
@@ -522,27 +455,5 @@ BEGIN
 END
 GO
 
-/* ============================================================
-   ÍNDICES ÚNICOS FILTRADOS
-   Propósito: Evitar duplicados solo entre registros ACTIVOS.
-   Permiten tener nombres repetidos si uno de ellos está inactivo.
-   ============================================================ */
-
--- 1. PRODUCTOS_SERVICIOS: No pueden existir dos productos ACTIVOS con el mismo nombre.
---    Ejemplo: Si hay un producto "Camisa" activo, no se puede crear otro "Camisa" activo.
---    Pero si uno se desactiva (activo=0), se puede crear otro nuevo con el mismo nombre.
-CREATE UNIQUE NONCLUSTERED INDEX IX_PRODUCTOS_nombre_activo
-ON PRODUCTOS_SERVICIOS(nombre) WHERE activo = 1;
-
--- 2. CATEGORIAS_PRODUCTO: No pueden existir dos categorías ACTIVAS con el mismo nombre.
---    Útil para mantener limpias las familias de productos.
-CREATE UNIQUE NONCLUSTERED INDEX IX_CATEGORIAS_nombre_activo
-ON CATEGORIAS_PRODUCTO(nombre) WHERE activo = 1;
-
--- 3. FORMAS_PAGO: No pueden existir dos formas de pago ACTIVAS con el mismo nombre.
---    Ejemplo: Solo una forma "Tarjeta Crédito" activa a la vez.
-CREATE UNIQUE NONCLUSTERED INDEX IX_FORMAS_PAGO_nombre_activo
-ON FORMAS_PAGO(forma_pago) WHERE activo = 1;
-
-PRINT 'Todas las tablas se han creado exitosamente.';
+PRINT 'Proceso de creación de tablas finalizado.';
 GO
