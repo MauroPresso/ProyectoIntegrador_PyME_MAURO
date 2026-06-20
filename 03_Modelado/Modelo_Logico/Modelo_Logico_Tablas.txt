@@ -1,0 +1,135 @@
+Modelo Logico - Tablas Definitivas
+
+PROVINCIAS
+- id_provincia INT PK
+- nombre VARCHAR(100) NOT NULL
+
+LOCALIDADES
+- id_localidad INT PK
+- id_provincia INT FK NOT NULL
+- nombre VARCHAR(100) NOT NULL
+- codigo_postal VARCHAR(20) NULL
+
+TIPOS_CLIENTE
+- id_tipo_cliente INT PK
+- tipo VARCHAR(50) NOT NULL
+- descripcion VARCHAR(150) NULL
+
+CLIENTES
+- id_cliente INT PK
+- id_localidad INT FK NOT NULL
+- id_tipo_cliente INT FK NOT NULL
+- tipo_persona CHAR(1) NOT NULL
+- cuil_cuit VARCHAR(11) NOT NULL UNIQUE
+- nombre_razon_social VARCHAR(150) NOT NULL
+- direccion VARCHAR(150) NULL
+- telefono VARCHAR(30) NULL
+- email VARCHAR(100) NULL
+- activo BIT NOT NULL
+
+ROLES
+- id_rol INT PK
+- rol VARCHAR(50) NOT NULL
+- descripcion VARCHAR(150) NULL
+
+USUARIOS
+- id_usuario INT PK
+- id_rol INT FK NOT NULL
+- nombre_usuario VARCHAR(50) NOT NULL UNIQUE
+- clave_hash VARCHAR(255) NOT NULL
+- nombre_completo VARCHAR(100) NOT NULL
+- email VARCHAR(100) NULL
+- activo BIT NOT NULL
+
+CATEGORIAS_PRODUCTO
+- id_categoria INT PK
+- nombre VARCHAR(100) NOT NULL
+- descripcion VARCHAR(150) NULL
+- activo BIT NOT NULL
+
+IMPUESTOS
+- id_impuesto INT PK
+- impuesto VARCHAR(50) NOT NULL
+- porcentaje DECIMAL(5,2) NOT NULL
+- descripcion VARCHAR(150) NULL
+- activo BIT NOT NULL
+
+PRODUCTOS_SERVICIOS
+- id_producto_servicio INT PK
+- id_categoria INT FK NOT NULL
+- id_impuesto INT FK NOT NULL
+- nombre VARCHAR(120) NOT NULL
+- descripcion VARCHAR(250) NULL
+- precio_unitario_actual DECIMAL(12,2) NOT NULL
+- activo BIT NOT NULL
+
+ESTADOS_FACTURA
+- id_estado_factura INT PK
+- estado VARCHAR(50) NOT NULL
+- descripcion VARCHAR(150) NULL
+
+TIPOS_FACTURA
+- id_tipo_factura INT PK
+- tipo VARCHAR(50) NOT NULL
+- descripcion VARCHAR(150) NULL
+
+TIPOS_OPERACION_FACTURA
+- id_tipo_operacion_factura INT PK
+- operacion VARCHAR(50) NOT NULL
+- descripcion VARCHAR(150) NULL
+
+FACTURAS
+- id_factura INT PK
+- id_cliente INT FK NOT NULL
+- id_usuario INT FK NOT NULL
+- id_estado_factura INT FK NOT NULL
+- id_tipo_factura INT FK NOT NULL
+- id_tipo_operacion_factura INT FK NOT NULL
+- numero_factura VARCHAR(30) NOT NULL UNIQUE
+- fecha_emision DATETIME NOT NULL
+- total_neto DECIMAL(12,2) NOT NULL
+- total_impuestos DECIMAL(12,2) NOT NULL
+- total_descuentos DECIMAL(12,2) NOT NULL
+- total_recargos DECIMAL(12,2) NOT NULL
+- total DECIMAL(12,2) NOT NULL
+- observaciones VARCHAR(250) NULL
+
+DETALLES_FACTURA
+- id_detalle_factura INT PK
+- id_factura INT FK NOT NULL
+- id_producto_servicio INT FK NOT NULL
+- id_impuesto INT FK NOT NULL
+- cantidad DECIMAL(12,2) NOT NULL
+- precio_unitario_facturado DECIMAL(12,2) NOT NULL
+- subtotal_neto DECIMAL(12,2) NOT NULL
+- porcentaje_impuesto_facturado DECIMAL(5,2) NOT NULL
+- importe_impuesto DECIMAL(12,2) NOT NULL
+- subtotal_con_impuesto DECIMAL(12,2) NOT NULL
+
+FORMAS_PAGO
+- id_forma_pago INT PK
+- forma_pago VARCHAR(50) NOT NULL
+- descripcion VARCHAR(150) NULL
+
+COMPROBANTES_PAGO
+- id_comprobante_pago INT PK
+- id_factura INT FK NOT NULL UNIQUE
+- id_forma_pago INT FK NOT NULL
+- fecha_pago DATETIME NOT NULL
+- monto DECIMAL(12,2) NOT NULL
+- numero_referencia VARCHAR(100) NULL
+- observaciones VARCHAR(150) NULL
+
+DESCUENTOS_FACTURA
+- id_descuento_factura INT PK
+- id_factura INT FK NOT NULL
+- descripcion VARCHAR(150) NULL
+- porcentaje DECIMAL(5,2) NULL
+- monto DECIMAL(12,2) NOT NULL
+
+RECARGOS_FACTURA
+- id_recargo_factura INT PK
+- id_factura INT FK NOT NULL
+- descripcion VARCHAR(150) NULL
+- porcentaje DECIMAL(5,2) NULL
+- monto DECIMAL(12,2) NOT NULL

@@ -1,0 +1,35 @@
+Entidades y Relaciones - Version Definitiva
+
+Relaciones geograficas:
+- PROVINCIAS 1 - N LOCALIDADES
+- LOCALIDADES 1 - N CLIENTES
+
+Relaciones de clientes:
+- TIPOS_CLIENTE 1 - N CLIENTES
+- CLIENTES.tipo_persona se controla con CHECK ('F','J')
+
+Relaciones de usuarios:
+- ROLES 1 - N USUARIOS
+- USUARIOS 1 - N FACTURAS
+
+Relaciones de facturacion:
+- CLIENTES 1 - N FACTURAS
+- ESTADOS_FACTURA 1 - N FACTURAS
+- TIPOS_FACTURA 1 - N FACTURAS
+- TIPOS_OPERACION_FACTURA 1 - N FACTURAS
+- FACTURAS 1 - N DETALLES_FACTURA
+- FACTURAS 1 - 1 COMPROBANTES_PAGO
+- FACTURAS 1 - N DESCUENTOS_FACTURA
+- FACTURAS 1 - N RECARGOS_FACTURA
+
+Relaciones de productos e impuestos:
+- CATEGORIAS_PRODUCTO 1 - N PRODUCTOS_SERVICIOS
+- IMPUESTOS 1 - N PRODUCTOS_SERVICIOS
+- PRODUCTOS_SERVICIOS 1 - N DETALLES_FACTURA
+- IMPUESTOS 1 - N DETALLES_FACTURA
+
+Relaciones de pagos:
+- FORMAS_PAGO 1 - N COMPROBANTES_PAGO
+
+Aclaracion sobre COMPROBANTES_PAGO:
+La relacion con FACTURAS se modela como 1 a 1. En SQL Server se implementa agregando UNIQUE sobre COMPROBANTES_PAGO.id_factura.

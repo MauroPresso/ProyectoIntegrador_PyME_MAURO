@@ -1,0 +1,19 @@
+Supuestos de Modelado - Version Definitiva
+
+1. PyME generica
+La PyME no pertenece a un rubro especifico. Por eso se usa PRODUCTOS_SERVICIOS como entidad generica.
+
+2. Condicion impositiva de la PyME
+Se asume que la PyME emisora es Responsable Inscripto. Esto permite justificar el uso de IMPUESTOS y el registro historico de importes impositivos.
+
+3. Identificacion de clientes
+Se usa cuil_cuit VARCHAR(11), sin guiones, para representar CUIL o CUIT segun corresponda. Se elimina TIPOS_DOCUMENTO para cumplir el feedback del profesor y simplificar el modelo.
+
+4. Persona fisica o juridica
+Se usa tipo_persona CHAR(1), con valores F y J. Esta decision permite distinguir personas fisicas y juridicas sin crear una tabla adicional.
+
+5. Comprobante de pago
+Se asume una relacion 1 a 1 entre FACTURAS y COMPROBANTES_PAGO, segun el feedback del profesor. Esto se implementa con una restriccion UNIQUE sobre id_factura en COMPROBANTES_PAGO.
+
+6. Alcance
+El modelo se considera cerrado para pasar a implementacion fisica, carga de datos, consultas y pruebas. No se agregan nuevas tablas fuera de este alcance.

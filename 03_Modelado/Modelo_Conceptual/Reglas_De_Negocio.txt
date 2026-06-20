@@ -1,0 +1,23 @@
+Reglas de Negocio - Version Definitiva
+
+1. Un cliente debe pertenecer a una localidad existente.
+2. Una localidad debe pertenecer a una provincia existente.
+3. Un cliente debe tener una condicion impositiva registrada en TIPOS_CLIENTE.
+4. Un cliente puede ser persona fisica o persona juridica.
+5. El campo tipo_persona solo permite los valores F o J.
+6. El campo cuil_cuit debe almacenarse sin guiones y con 11 caracteres.
+7. No puede haber dos clientes con el mismo cuil_cuit.
+8. Una factura pertenece a un unico cliente.
+9. Una factura es emitida por un unico usuario.
+10. Una factura debe tener un estado, un tipo de factura y un tipo de operacion.
+11. Una factura puede tener uno o mas detalles.
+12. Cada detalle corresponde a un unico producto o servicio.
+13. La cantidad facturada debe ser mayor a cero.
+14. El precio unitario facturado debe ser mayor o igual a cero.
+15. El precio unitario facturado se guarda para conservar el valor historico de la operacion.
+16. El porcentaje de impuesto facturado y el importe del impuesto se guardan en el detalle para conservar el valor historico.
+17. Una factura debe tener un unico comprobante de pago asociado.
+18. La forma de pago se registra en COMPROBANTES_PAGO, no en FACTURAS.
+19. Una factura puede tener descuentos y recargos asociados.
+20. El total de la factura se calcula conceptualmente como:
+    total = total_neto + total_impuestos + total_recargos - total_descuentos

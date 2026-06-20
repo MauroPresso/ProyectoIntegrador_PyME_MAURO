@@ -1,0 +1,20 @@
+Resumen de Tablas - Version Basica
+
+PROVINCIAS: almacena provincias.
+LOCALIDADES: almacena localidades asociadas a provincias.
+TIPOS_CLIENTE: almacena condiciones impositivas de clientes.
+CLIENTES: almacena clientes, identificados por cuil_cuit y tipo_persona.
+ROLES: almacena roles de usuarios.
+USUARIOS: almacena usuarios del sistema.
+CATEGORIAS_PRODUCTO: clasifica productos o servicios.
+IMPUESTOS: almacena impuestos aplicables, incluyendo IVA.
+PRODUCTOS_SERVICIOS: almacena el catalogo facturable.
+ESTADOS_FACTURA: almacena estados posibles de facturas.
+TIPOS_FACTURA: almacena tipos de comprobante.
+TIPOS_OPERACION_FACTURA: almacena tipos de operacion comercial.
+FACTURAS: almacena la cabecera de las facturas.
+DETALLES_FACTURA: almacena los items facturados, con precio e impuesto historico.
+FORMAS_PAGO: almacena medios de pago.
+COMPROBANTES_PAGO: almacena el comprobante de pago asociado a una factura.
+DESCUENTOS_FACTURA: almacena descuentos aplicados a facturas.
+RECARGOS_FACTURA: almacena recargos aplicados a facturas.

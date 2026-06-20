@@ -1,0 +1,50 @@
+Modelo Conceptual - Sistema de Ventas y Facturacion para una PyME Generica
+
+1. Descripcion general
+
+El sistema modela la gestion de ventas y facturacion de una PyME generica. La PyME no se asocia a un rubro especifico. El sistema permite administrar clientes, productos o servicios, facturas, detalles de factura, comprobantes de pago, descuentos, recargos e impuestos.
+
+El modelo se ajusta al feedback del profesor de practica, priorizando claridad, normalizacion y posibilidad de implementacion rapida en SQL Server.
+
+2. Supuestos principales
+
+- La PyME se asume como Responsable Inscripto para justificar el manejo de impuestos.
+- Los clientes pueden ser personas fisicas o juridicas.
+- El campo cuil_cuit se guarda sin guiones y con 11 caracteres.
+- El tipo de persona se representa con un codigo simple: F para fisica y J para juridica.
+- Cada factura tiene un unico comprobante de pago asociado.
+- Una factura puede tener uno o mas detalles.
+- Los precios e impuestos aplicados se conservan historicamente en el detalle de factura.
+- Los descuentos y recargos se registran a nivel factura.
+
+3. Entidades principales
+
+PROVINCIAS: representa las provincias donde se ubican las localidades.
+LOCALIDADES: representa las localidades asociadas a los clientes.
+TIPOS_CLIENTE: representa la condicion impositiva del cliente, por ejemplo Responsable Inscripto, Monotributista, Consumidor Final o Exento de IVA.
+CLIENTES: representa las personas fisicas o juridicas que compran productos o servicios.
+ROLES: representa perfiles de usuario del sistema.
+USUARIOS: representa usuarios que operan el sistema y emiten facturas.
+CATEGORIAS_PRODUCTO: clasifica productos o servicios.
+IMPUESTOS: registra impuestos aplicables, incluyendo IVA u otros impuestos que puedan corresponder.
+PRODUCTOS_SERVICIOS: representa el catalogo de productos o servicios facturables.
+ESTADOS_FACTURA: representa estados como Emitida, Anulada o Pendiente.
+TIPOS_FACTURA: representa tipos formales de comprobante, por ejemplo Factura A, Factura B, Nota de Credito, etc.
+TIPOS_OPERACION_FACTURA: representa la naturaleza de la operacion comercial, por ejemplo Venta, Servicio o Venta mixta.
+FACTURAS: representa la cabecera de cada factura emitida.
+DETALLES_FACTURA: representa cada renglon o item incluido en una factura.
+FORMAS_PAGO: representa medios de pago disponibles.
+COMPROBANTES_PAGO: representa el comprobante de pago asociado a una factura.
+DESCUENTOS_FACTURA: registra descuentos aplicados a una factura.
+RECARGOS_FACTURA: registra recargos aplicados a una factura.
+
+4. Nucleo conceptual
+
+El nucleo del modelo es:
+
+CLIENTES 1 - N FACTURAS
+FACTURAS 1 - N DETALLES_FACTURA
+PRODUCTOS_SERVICIOS 1 - N DETALLES_FACTURA
+FACTURAS 1 - 1 COMPROBANTES_PAGO
+
+Esto permite registrar una factura para un cliente, cargar sus items, conservar precios e impuestos historicos y asociar un comprobante de pago unico.

@@ -1,0 +1,52 @@
+Restricciones de Integridad - Version Definitiva
+
+Claves primarias:
+Todas las tablas poseen una clave primaria simple de tipo INT, salvo tipo_persona que se modela como atributo controlado en CLIENTES.
+
+Claves foraneas principales:
+- LOCALIDADES.id_provincia -> PROVINCIAS.id_provincia
+- CLIENTES.id_localidad -> LOCALIDADES.id_localidad
+- CLIENTES.id_tipo_cliente -> TIPOS_CLIENTE.id_tipo_cliente
+- USUARIOS.id_rol -> ROLES.id_rol
+- FACTURAS.id_cliente -> CLIENTES.id_cliente
+- FACTURAS.id_usuario -> USUARIOS.id_usuario
+- FACTURAS.id_estado_factura -> ESTADOS_FACTURA.id_estado_factura
+- FACTURAS.id_tipo_factura -> TIPOS_FACTURA.id_tipo_factura
+- FACTURAS.id_tipo_operacion_factura -> TIPOS_OPERACION_FACTURA.id_tipo_operacion_factura
+- PRODUCTOS_SERVICIOS.id_categoria -> CATEGORIAS_PRODUCTO.id_categoria
+- PRODUCTOS_SERVICIOS.id_impuesto -> IMPUESTOS.id_impuesto
+- DETALLES_FACTURA.id_factura -> FACTURAS.id_factura
+- DETALLES_FACTURA.id_producto_servicio -> PRODUCTOS_SERVICIOS.id_producto_servicio
+- DETALLES_FACTURA.id_impuesto -> IMPUESTOS.id_impuesto
+- COMPROBANTES_PAGO.id_factura -> FACTURAS.id_factura
+- COMPROBANTES_PAGO.id_forma_pago -> FORMAS_PAGO.id_forma_pago
+- DESCUENTOS_FACTURA.id_factura -> FACTURAS.id_factura
+- RECARGOS_FACTURA.id_factura -> FACTURAS.id_factura
+
+Restricciones UNIQUE recomendadas:
+- CLIENTES.cuil_cuit UNIQUE
+- USUARIOS.nombre_usuario UNIQUE
+- FACTURAS.numero_factura UNIQUE
+- COMPROBANTES_PAGO.id_factura UNIQUE para asegurar relacion 1 a 1 con FACTURAS
+
+Restricciones CHECK recomendadas:
+- CLIENTES.tipo_persona IN ('F','J')
+- LEN(CLIENTES.cuil_cuit) = 11
+- PRODUCTOS_SERVICIOS.precio_unitario_actual >= 0
+- DETALLES_FACTURA.cantidad > 0
+- DETALLES_FACTURA.precio_unitario_facturado >= 0
+- DETALLES_FACTURA.subtotal_neto >= 0
+- DETALLES_FACTURA.porcentaje_impuesto_facturado >= 0
+- DETALLES_FACTURA.importe_impuesto >= 0
+- DETALLES_FACTURA.subtotal_con_impuesto >= 0
+- FACTURAS.total_neto >= 0
+- FACTURAS.total_impuestos >= 0
+- FACTURAS.total_descuentos >= 0
+- FACTURAS.total_recargos >= 0
+- FACTURAS.total >= 0
+- COMPROBANTES_PAGO.monto >= 0
+- DESCUENTOS_FACTURA.monto >= 0
+- RECARGOS_FACTURA.monto >= 0
+
+Regla de calculo conceptual:
+FACTURAS.total = FACTURAS.total_neto + FACTURAS.total_impuestos + FACTURAS.total_recargos - FACTURAS.total_descuentos
