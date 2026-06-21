@@ -1,0 +1,33 @@
+$repo = "D:\Mauro\Facultad\IFES\Materias\1erCuatri2doAnio\BasesDeDatos\DataBase101\ProyectoIntegrador_PyME_MAURO"
+$server = ".\SQLEXPRESS"
+
+Set-Location $repo
+$ErrorActionPreference = "Stop"
+New-Item -ItemType Directory -Force ".\_logs_sql" | Out-Null
+
+$scripts = @(
+    ".\06_Funciones_Subconsultas\01_Funciones_Cadena\01_funciones_cadena_clientes.sql",
+    ".\06_Funciones_Subconsultas\02_Funciones_Fecha\01_funciones_fecha_facturas.sql",
+    ".\06_Funciones_Subconsultas\03_Subconsultas\01_subconsultas_reportes.sql"
+)
+
+foreach ($script in $scripts) {
+    Write-Host "Ejecutando: $script" -ForegroundColor Cyan
+
+    $parent = Split-Path (Split-Path $script -Parent) -Leaf
+    $leaf = Split-Path $script -Leaf
+    $log = ".\_logs_sql\" + $parent + "_" + ($leaf -replace "\.sql$", ".log")
+
+    sqlcmd -S $server -E -C -I -b -i $script -o $log
+
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "FALLÓ: $script" -ForegroundColor Red
+        Write-Host "Revisar log: $log" -ForegroundColor Yellow
+        throw "Se detuvo la ejecucion por error SQL."
+    }
+
+    Write-Host "OK: $script" -ForegroundColor Green
+}
+
+Write-Host "Verificacion rapida de tablas principales:" -ForegroundColor Yellow
+sqlcmd -S $server -E -C -I -d BaseDeDatos_PyME -Q "SELECT 'CLIENTES' AS tabla, COUNT(*) AS cantidad FROM dbo.CLIENTES UNION ALL SELECT 'PRODUCTOS_SERVICIOS', COUNT(*) FROM dbo.PRODUCTOS_SERVICIOS UNION ALL SELECT 'FACTURAS', COUNT(*) FROM dbo.FACTURAS UNION ALL SELECT 'DETALLES_FACTURA', COUNT(*) FROM dbo.DETALLES_FACTURA;"
