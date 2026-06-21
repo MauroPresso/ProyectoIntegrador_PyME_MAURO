@@ -82,3 +82,7 @@ __pycache__/
 
 # SQL Server - archivos locales de datos de cada PC
 _LOCAL_SQLSERVER_DATA/**
+
+# Logs de ejecucion SQL
+_logs_sql/
+

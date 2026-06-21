@@ -1,0 +1,41 @@
+$repo = "D:\Mauro\Facultad\IFES\Materias\1erCuatri2doAnio\BasesDeDatos\DataBase101\ProyectoIntegrador_PyME_MAURO"
+$server = ".\SQLEXPRESS"
+
+Set-Location $repo
+$ErrorActionPreference = "Stop"
+New-Item -ItemType Directory -Force ".\_logs_sql" | Out-Null
+
+$scripts = @(
+    ".\05_CRUD\01_Create_Insert\01_insert_clientes.sql",
+    ".\05_CRUD\01_Create_Insert\02_insert_productos_servicios.sql",
+    ".\05_CRUD\01_Create_Insert\03_insert_facturas.sql",
+    ".\05_CRUD\02_Read_Select\01_select_clientes.sql",
+    ".\05_CRUD\02_Read_Select\02_select_productos_servicios.sql",
+    ".\05_CRUD\02_Read_Select\03_select_facturas.sql",
+    ".\05_CRUD\02_Read_Select\04_select_reportes_joins_agrupaciones.sql",
+    ".\05_CRUD\03_Update\01_update_clientes.sql",
+    ".\05_CRUD\03_Update\02_update_productos_servicios.sql",
+    ".\05_CRUD\03_Update\03_update_facturas.sql",
+    ".\05_CRUD\04_Delete\01_delete_clientes.sql",
+    ".\05_CRUD\04_Delete\02_delete_productos_servicios.sql",
+    ".\05_CRUD\04_Delete\03_delete_facturas.sql",
+    ".\05_CRUD\05_Stored_Procedures\01_sp_clientes.sql",
+    ".\05_CRUD\05_Stored_Procedures\02_sp_productos_servicios.sql",
+    ".\05_CRUD\05_Stored_Procedures\03_sp_facturas.sql",
+    ".\05_CRUD\05_Stored_Procedures\04_sp_reportes_consultas.sql",
+    ".\05_CRUD\05_Stored_Procedures\99_verificar_procedimientos.sql"
+)
+
+foreach ($script in $scripts) {
+    Write-Host "Ejecutando: $script" -ForegroundColor Cyan
+    $log = ".\_logs_sql\" + ((Split-Path $script -Leaf) -replace "\.sql$", ".log")
+    sqlcmd -S $server -E -C -I -b -i $script -o $log
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "FALLÓ: $script" -ForegroundColor Red
+        Write-Host "Revisar log: $log" -ForegroundColor Yellow
+        throw "Se detuvo la ejecucion por error SQL."
+    }
+    Write-Host "OK: $script" -ForegroundColor Green
+}
+
+sqlcmd -S $server -E -C -I -d BaseDeDatos_PyME -Q "SELECT name AS Procedimiento, create_date, modify_date FROM sys.procedures WHERE name LIKE 'usp_%' ORDER BY name;"

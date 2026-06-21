@@ -12,6 +12,14 @@ USE BaseDeDatos_PyME;
 GO
 
 SET NOCOUNT ON;
+SET XACT_ABORT ON;
+SET ANSI_NULLS ON;
+SET ANSI_PADDING ON;
+SET ANSI_WARNINGS ON;
+SET ARITHABORT ON;
+SET CONCAT_NULL_YIELDS_NULL ON;
+SET QUOTED_IDENTIFIER ON;
+SET NUMERIC_ROUNDABORT OFF;
 GO
 
 DECLARE
@@ -25,14 +33,14 @@ ORDER BY id_categoria;
 
 SELECT @id_impuesto_iva_21 = id_impuesto
 FROM dbo.IMPUESTOS
-WHERE impuesto = 'IVA 21%'
+WHERE porcentaje = 21.00
   AND activo = 1;
 
 IF @id_categoria IS NULL
     THROW 60101, 'No existen categorias activas cargadas. Ejecutar primero los inserts del modelo fisico.', 1;
 
 IF @id_impuesto_iva_21 IS NULL
-    THROW 60102, 'No existe el impuesto IVA 21% activo.', 1;
+    THROW 60102, 'No existe un impuesto activo con porcentaje 21.00.', 1;
 
 /* Producto de prueba */
 IF NOT EXISTS

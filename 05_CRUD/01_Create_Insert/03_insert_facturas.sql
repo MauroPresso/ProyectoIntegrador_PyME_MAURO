@@ -12,7 +12,16 @@ USE BaseDeDatos_PyME;
 GO
 
 SET NOCOUNT ON;
+SET XACT_ABORT ON;
+SET ANSI_NULLS ON;
+SET ANSI_PADDING ON;
+SET ANSI_WARNINGS ON;
+SET ARITHABORT ON;
+SET CONCAT_NULL_YIELDS_NULL ON;
+SET QUOTED_IDENTIFIER ON;
+SET NUMERIC_ROUNDABORT OFF;
 GO
+
 SET XACT_ABORT ON;
 GO
 
@@ -45,9 +54,10 @@ SELECT @id_estado_emitida = id_estado_factura
 FROM dbo.ESTADOS_FACTURA
 WHERE estado = 'Emitida';
 
-SELECT @id_tipo_factura = id_tipo_factura
+SELECT TOP 1 @id_tipo_factura = id_tipo_factura
 FROM dbo.TIPOS_FACTURA
-WHERE tipo = 'Factura B';
+WHERE tipo IN ('B', 'Factura B')
+ORDER BY CASE WHEN tipo = 'B' THEN 0 ELSE 1 END;
 
 SELECT @id_tipo_operacion_venta = id_tipo_operacion_factura
 FROM dbo.TIPOS_OPERACION_FACTURA
@@ -73,7 +83,7 @@ IF @id_estado_emitida IS NULL
     THROW 60203, 'No existe el estado de factura Emitida.', 1;
 
 IF @id_tipo_factura IS NULL
-    THROW 60204, 'No existe el tipo de factura Factura B.', 1;
+    THROW 60204, 'No existe el tipo de factura B.', 1;
 
 IF @id_tipo_operacion_venta IS NULL
     THROW 60205, 'No existe el tipo de operacion Venta.', 1;
