@@ -4,8 +4,19 @@
    ============================================================ */
 USE BaseDeDatos_PyME;
 GO
+
 SET NOCOUNT ON;
 SET XACT_ABORT ON;
+GO
+
+/* Opciones requeridas por SQL Server para operar con índices filtrados */
+SET ANSI_NULLS ON;
+SET QUOTED_IDENTIFIER ON;
+SET ANSI_PADDING ON;
+SET ANSI_WARNINGS ON;
+SET CONCAT_NULL_YIELDS_NULL ON;
+SET ARITHABORT ON;
+SET NUMERIC_ROUNDABORT OFF;
 GO
 
 BEGIN TRY
