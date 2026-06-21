@@ -1,0 +1,51 @@
+COMPARACION DE RENDIMIENTO - PROYECTO INTEGRADOR BDD
+====================================================
+
+Ubicacion:
+07_Pruebas_Optimizacion\Indices_y_Rendimiento
+
+Objetivo:
+Comparar el rendimiento de consultas relevantes antes y despues
+de crear indices no clusterizados de optimizacion.
+
+Procedimiento realizado:
+1. Se ejecuto 01_eliminar_indices_optimizacion.sql.
+2. Se ejecuto 03_pruebas_rendimiento_consultas.sql sin indices.
+3. Se guardo captura en 07_Pruebas_Optimizacion\Capturas_SSMS.
+4. Se ejecuto 02_crear_indices_optimizacion.sql.
+5. Se ejecuto nuevamente 03_pruebas_rendimiento_consultas.sql con indices.
+6. Se compararon tiempos aproximados, lecturas logicas y mensajes de SSMS.
+
+Resultados:
+----------------------------------------------------
+Consulta 1 - Total facturado por mes
+Sin indices:
+Con indices:
+Observacion:
+
+Consulta 2 - Productos o servicios mas vendidos
+Sin indices:
+Con indices:
+Observacion:
+
+Consulta 3 - Clientes con mayor monto facturado
+Sin indices:
+Con indices:
+Observacion:
+
+Consulta 4 - Facturas con cliente, usuario, estado y tipo
+Sin indices:
+Con indices:
+Observacion:
+
+Consulta 5 - Control de consistencia cabecera/detalle
+Sin indices:
+Con indices:
+Observacion:
+
+Conclusion:
+Los indices agregados ayudan principalmente en consultas que usan
+JOIN, filtros por estado, fecha, cliente, producto y agrupaciones.
+En una base de datos chica la diferencia puede ser baja, pero la
+estructura queda preparada para mejorar el rendimiento cuando crezca
+la cantidad de registros.
