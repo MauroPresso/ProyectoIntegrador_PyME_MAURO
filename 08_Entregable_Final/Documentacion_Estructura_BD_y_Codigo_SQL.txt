@@ -1,0 +1,250 @@
+DOCUMENTACION FINAL - ESTRUCTURA DE LA BASE DE DATOS Y CODIGO SQL
+=================================================================
+
+Proyecto: ProyectoIntegrador_PyME_MAURO
+Asignatura: Bases de Datos
+Motor de base de datos: SQL Server
+Base de datos: BaseDeDatos_PyME
+
+Objetivo del documento
+----------------------
+Este archivo centraliza la documentacion necesaria para la presentacion final del proyecto.
+Su objetivo es dejar explicada, en un unico lugar, la estructura general de la base de datos
+y la organizacion del codigo SQL desarrollado en el repositorio.
+
+Este documento no reemplaza los scripts SQL. Funciona como guia de lectura, defensa y exposicion.
+
+
+1. Estructura general de la base de datos
+-----------------------------------------
+La base de datos BaseDeDatos_PyME representa una PyME generica orientada a la gestion de clientes,
+productos/servicios, facturacion, pagos, descuentos, recargos y auditoria.
+
+Grupos logicos principales:
+
+1) Ubicacion geografica
+   - PROVINCIAS
+   - LOCALIDADES
+
+2) Clientes
+   - TIPOS_CLIENTE
+   - TIPOS_DOCUMENTO
+   - ESTADOS_CLIENTES
+   - CLIENTES
+
+3) Usuarios del sistema
+   - ROLES
+   - ESTADOS_USUARIOS
+   - USUARIOS
+
+4) Productos, servicios e impuestos
+   - CATEGORIAS_PRODUCTO
+   - IMPUESTOS
+   - PRODUCTOS_SERVICIOS
+
+5) Facturacion
+   - ESTADOS_FACTURA
+   - TIPOS_FACTURA
+   - TIPOS_OPERACION_FACTURA
+   - FACTURAS
+   - DETALLES_FACTURA
+
+6) Pagos y ajustes comerciales
+   - FORMAS_PAGO
+   - COMPROBANTES_PAGO
+   - DESCUENTOS_FACTURA
+   - RECARGOS_FACTURA
+
+7) Auditoria
+   - AUDITORIA_FACTURA
+
+
+2. Relaciones principales
+-------------------------
+El modelo utiliza claves primarias, claves foraneas, restricciones UNIQUE, restricciones CHECK
+y valores DEFAULT para asegurar la integridad de los datos.
+
+Relaciones principales:
+
+- PROVINCIAS 1 a N LOCALIDADES
+- LOCALIDADES 1 a N CLIENTES
+- TIPOS_CLIENTE 1 a N CLIENTES
+- TIPOS_DOCUMENTO 1 a N CLIENTES
+- ESTADOS_CLIENTES 1 a N CLIENTES
+- ROLES 1 a N USUARIOS
+- ESTADOS_USUARIOS 1 a N USUARIOS
+- CLIENTES 1 a N FACTURAS
+- USUARIOS 1 a N FACTURAS
+- ESTADOS_FACTURA 1 a N FACTURAS
+- TIPOS_FACTURA 1 a N FACTURAS
+- TIPOS_OPERACION_FACTURA 1 a N FACTURAS
+- FACTURAS 1 a N DETALLES_FACTURA
+- PRODUCTOS_SERVICIOS 1 a N DETALLES_FACTURA
+- FACTURAS 1 a 1 COMPROBANTES_PAGO
+- FORMAS_PAGO 1 a N COMPROBANTES_PAGO
+- FACTURAS 1 a N DESCUENTOS_FACTURA
+- FACTURAS 1 a N RECARGOS_FACTURA
+- FACTURAS 1 a N AUDITORIA_FACTURA
+- USUARIOS 1 a N AUDITORIA_FACTURA
+
+Aclaracion:
+La relacion FACTURAS 1 a 1 COMPROBANTES_PAGO se implementa mediante una clave foranea hacia
+FACTURAS y una restriccion UNIQUE sobre COMPROBANTES_PAGO.id_factura.
+
+
+3. Organizacion del codigo SQL
+------------------------------
+Los scripts SQL estan organizados por etapa del proyecto.
+
+3.1. Modelo fisico SQL Server
+
+Carpeta:
+04_SQLServer_Modelo_Fisico
+
+Archivos principales:
+
+- 04_SQLServer_Modelo_Fisico/00_Crear_Base_Datos/01_crear_base_datos_DELL.sql
+  Crea la base BaseDeDatos_PyME en la computadora DELL.
+
+- 04_SQLServer_Modelo_Fisico/00_Crear_Base_Datos/01_crear_base_datos_LENOVO.sql
+  Crea la base BaseDeDatos_PyME en la computadora LENOVO.
+
+- 04_SQLServer_Modelo_Fisico/01_Creacion_de_tablas/Crear_tablas.sql
+  Crea las tablas principales con PK, FK, UNIQUE, CHECK y DEFAULT.
+
+- 04_SQLServer_Modelo_Fisico/01_Creacion_de_tablas/Reiniciar_a_cero_la_base.sql
+  Permite limpiar la base respetando el orden de dependencias.
+
+- 04_SQLServer_Modelo_Fisico/02_Restricciones/Restricciones_indices.sql
+  Agrega restricciones e indices propios del modelo fisico.
+
+- 04_SQLServer_Modelo_Fisico/03_Datos_Prueba/Insertar_datos_iniciales.sql
+  Inserta datos iniciales y catalogos.
+
+- 04_SQLServer_Modelo_Fisico/04_Consultas/Consultas.sql
+  Contiene consultas de apoyo.
+
+
+3.2. CRUD
+
+Carpeta:
+05_CRUD
+
+Objetivo:
+Demostrar operaciones de alta, consulta, modificacion y baja sobre las tablas principales.
+
+Subcarpetas:
+
+- 05_CRUD/01_Create_Insert
+- 05_CRUD/02_Read_Select
+- 05_CRUD/03_Update
+- 05_CRUD/04_Delete
+- 05_CRUD/05_Stored_Procedures
+
+Archivo guia:
+- 05_CRUD/README.txt
+
+
+3.3. Funciones y subconsultas
+
+Carpeta:
+06_Funciones_Subconsultas
+
+Objetivo:
+Demostrar funciones de cadena, funciones de fecha y subconsultas sin modificar datos.
+
+Subcarpetas:
+
+- 06_Funciones_Subconsultas/01_Funciones_Cadena
+- 06_Funciones_Subconsultas/02_Funciones_Fecha
+- 06_Funciones_Subconsultas/03_Subconsultas
+
+Archivo guia:
+- 06_Funciones_Subconsultas/README.txt
+
+
+3.4. Pruebas y optimizacion
+
+Carpeta:
+07_Pruebas_Optimizacion
+
+Objetivo:
+Validar el funcionamiento de la base, las tablas, los datos, el CRUD, las consultas,
+los procedimientos y las mejoras de rendimiento mediante indices.
+
+Subcarpetas:
+
+- 07_Pruebas_Optimizacion/Validaciones
+- 07_Pruebas_Optimizacion/Indices_y_Rendimiento
+- 07_Pruebas_Optimizacion/Errores_Resueltos
+
+
+4. Orden recomendado de ejecucion
+---------------------------------
+Orden sugerido para reconstruir y probar el proyecto:
+
+1) Crear la base de datos
+   - Ejecutar el script DELL o LENOVO segun corresponda.
+
+2) Crear tablas
+   - 04_SQLServer_Modelo_Fisico/01_Creacion_de_tablas/Crear_tablas.sql
+
+3) Crear restricciones e indices del modelo fisico
+   - 04_SQLServer_Modelo_Fisico/02_Restricciones/Restricciones_indices.sql
+
+4) Insertar datos iniciales
+   - 04_SQLServer_Modelo_Fisico/03_Datos_Prueba/Insertar_datos_iniciales.sql
+
+5) Ejecutar CRUD
+   - Seguir el orden indicado en 05_CRUD/README.txt
+
+6) Ejecutar funciones y subconsultas
+   - Seguir el orden indicado en 06_Funciones_Subconsultas/README.txt
+
+7) Ejecutar validaciones y pruebas de optimizacion
+   - Usar los scripts de 07_Pruebas_Optimizacion
+
+
+5. Criterios aplicados
+----------------------
+Durante el desarrollo se aplicaron estos criterios:
+
+- Nombres claros y consistentes.
+- Uso del esquema dbo.
+- Separacion de scripts por responsabilidad.
+- Uso de PRIMARY KEY.
+- Uso de FOREIGN KEY.
+- Uso de UNIQUE.
+- Uso de CHECK.
+- Uso de DEFAULT.
+- Uso de DECIMAL(12,2) para importes monetarios.
+- Uso de DECIMAL(5,2) para porcentajes.
+- Uso de BIT para estados activo/inactivo.
+- Uso de procedimientos almacenados.
+- Uso de scripts de validacion.
+- Uso de indices para pruebas de rendimiento.
+
+
+6. Relacion con la presentacion final
+-------------------------------------
+Este archivo sirve como documento central para explicar:
+
+- Que problema resuelve la base de datos.
+- Como se organizan las entidades principales.
+- Como se relacionan las tablas.
+- Donde se encuentra cada bloque de codigo SQL.
+- En que orden se ejecuta el proyecto.
+- Que decisiones tecnicas se tomaron para asegurar integridad y rendimiento.
+
+Este documento cumple el punto:
+"Documentar estructura de la base de datos y codigo SQL".
+
+
+7. Estado final
+---------------
+Ubicacion del documento:
+
+08_Entregable_Final/Documentacion_Estructura_BD_y_Codigo_SQL.txt
+
+Estado:
+Preparado para ser usado como apoyo en la presentacion final y en la entrega del proyecto.
