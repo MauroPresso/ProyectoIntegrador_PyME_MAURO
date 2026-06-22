@@ -1,0 +1,149 @@
+REGLAS DE NEGOCIO - PyME GENERICA
+=================================
+
+Proyecto: ProyectoIntegrador_PyME_MAURO
+Base de datos: BaseDeDatos_PyME
+Motor: SQL Server
+
+
+1. Objetivo del documento
+-------------------------
+
+Este documento define las reglas de negocio principales de la PyME generica. Las reglas surgen
+de la operatoria administrativa y comercial analizada y se reflejan en el modelo de datos y en
+las restricciones implementadas en SQL Server.
+
+
+2. Reglas de negocio
+--------------------
+
+RN-01 - Identificacion unica de clientes
+Todo cliente debe estar identificado por un numero de documento unico dentro del sistema.
+Tabla relacionada:
+CLIENTES.
+
+RN-02 - Clasificacion de clientes
+Todo cliente debe estar asociado a un tipo de cliente, un tipo de documento, un estado y una
+localidad.
+Tablas relacionadas:
+CLIENTES, TIPOS_CLIENTE, TIPOS_DOCUMENTO, ESTADOS_CLIENTES, LOCALIDADES.
+
+RN-03 - Tipo de persona del cliente
+Un cliente puede ser persona fisica o persona juridica.
+- Si es persona fisica, debe tener nombre y apellido.
+- Si es persona juridica, debe tener razon social.
+Tabla relacionada:
+CLIENTES.
+
+RN-04 - Relacion geografica
+Toda localidad debe pertenecer a una provincia. Todo cliente debe estar asociado a una localidad.
+Tablas relacionadas:
+PROVINCIAS, LOCALIDADES, CLIENTES.
+
+RN-05 - Clasificacion de usuarios
+Todo usuario interno debe tener un rol y un estado asignado.
+Tablas relacionadas:
+USUARIOS, ROLES, ESTADOS_USUARIOS.
+
+RN-06 - Productos y servicios categorizados
+Todo producto o servicio debe pertenecer a una categoria y tener un impuesto asociado.
+Tablas relacionadas:
+PRODUCTOS_SERVICIOS, CATEGORIAS_PRODUCTO, IMPUESTOS.
+
+RN-07 - Precio y stock validos
+El precio unitario actual de un producto o servicio no puede ser negativo. El stock actual no
+puede ser negativo.
+Tabla relacionada:
+PRODUCTOS_SERVICIOS.
+
+RN-08 - Factura asociada a cliente y usuario
+Toda factura debe estar asociada a un cliente y al usuario que registra la operacion.
+Tablas relacionadas:
+FACTURAS, CLIENTES, USUARIOS.
+
+RN-09 - Estado, tipo y operacion de factura
+Toda factura debe tener un estado, un tipo de factura y un tipo de operacion asociado.
+Tablas relacionadas:
+FACTURAS, ESTADOS_FACTURA, TIPOS_FACTURA, TIPOS_OPERACION_FACTURA.
+
+RN-10 - Numero de factura unico
+El numero de factura no debe repetirse dentro del sistema.
+Tabla relacionada:
+FACTURAS.
+
+RN-11 - Importes de factura no negativos
+Los totales de factura, impuestos, descuentos y recargos no pueden ser negativos.
+Tabla relacionada:
+FACTURAS.
+
+RN-12 - Detalle obligatorio para facturacion
+Una factura puede tener uno o mas detalles de productos o servicios. Cada detalle debe estar
+asociado a una factura y a un producto o servicio.
+Tablas relacionadas:
+FACTURAS, DETALLES_FACTURA, PRODUCTOS_SERVICIOS.
+
+RN-13 - Cantidades de detalle positivas
+La cantidad facturada en cada detalle debe ser mayor a cero. Los importes del detalle no deben
+ser negativos.
+Tabla relacionada:
+DETALLES_FACTURA.
+
+RN-14 - Pago asociado a factura
+Todo comprobante de pago debe estar asociado a una factura y a una forma de pago.
+Tablas relacionadas:
+COMPROBANTES_PAGO, FACTURAS, FORMAS_PAGO.
+
+RN-15 - Una factura tiene como maximo un comprobante de pago
+La relacion entre FACTURAS y COMPROBANTES_PAGO se modela como 1 a 1. Esto se implementa mediante
+una restriccion UNIQUE sobre COMPROBANTES_PAGO.id_factura.
+Tablas relacionadas:
+FACTURAS, COMPROBANTES_PAGO.
+
+RN-16 - Monto de pago positivo
+El monto registrado en un comprobante de pago debe ser mayor a cero.
+Tabla relacionada:
+COMPROBANTES_PAGO.
+
+RN-17 - Descuentos asociados a facturas
+Todo descuento debe estar asociado a una factura y debe tener una descripcion. Su monto debe ser
+mayor a cero y su porcentaje, si existe, no puede ser negativo.
+Tablas relacionadas:
+DESCUENTOS_FACTURA, FACTURAS.
+
+RN-18 - Recargos asociados a facturas
+Todo recargo debe estar asociado a una factura y debe tener una descripcion. Su monto debe ser
+mayor a cero y su porcentaje, si existe, no puede ser negativo.
+Tablas relacionadas:
+RECARGOS_FACTURA, FACTURAS.
+
+RN-19 - Auditoria de operaciones
+Toda auditoria de factura debe estar asociada a una factura y a un usuario. Debe registrar una
+accion, una fecha y un detalle opcional.
+Tablas relacionadas:
+AUDITORIA_FACTURA, FACTURAS, USUARIOS.
+
+RN-20 - Catalogos sin valores vacios
+Los catalogos principales no deben permitir nombres, tipos, estados o descripciones clave vacias.
+Tablas relacionadas:
+PROVINCIAS, LOCALIDADES, TIPOS_CLIENTE, TIPOS_DOCUMENTO, ROLES, ESTADOS_USUARIOS,
+ESTADOS_CLIENTES, ESTADOS_FACTURA, TIPOS_FACTURA, TIPOS_OPERACION_FACTURA,
+CATEGORIAS_PRODUCTO, IMPUESTOS, FORMAS_PAGO.
+
+RN-21 - Datos coherentes antes de operar
+Antes de cargar facturas y pagos deben existir los catalogos necesarios: clientes, usuarios,
+productos/servicios, impuestos, estados, tipos de factura, tipos de operacion y formas de pago.
+Ubicacion relacionada:
+04_SQLServer_Modelo_Fisico/03_Datos_Prueba/Insertar_datos_iniciales.sql.
+
+RN-22 - Validacion mediante scripts
+El funcionamiento de tablas, datos, CRUD, consultas, procedimientos e indices debe poder validarse
+mediante scripts de prueba.
+Ubicacion relacionada:
+07_Pruebas_Optimizacion.
+
+
+3. Conclusion
+-------------
+
+Las reglas de negocio definidas permiten controlar la coherencia de la informacion y justifican
+las relaciones y restricciones implementadas en la base BaseDeDatos_PyME.

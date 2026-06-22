@@ -1,0 +1,137 @@
+REQUERIMIENTOS NO FUNCIONALES - PyME GENERICA
+============================================
+
+Proyecto: ProyectoIntegrador_PyME_MAURO
+Base de datos: BaseDeDatos_PyME
+Motor: SQL Server
+
+
+1. Objetivo del documento
+-------------------------
+
+Este documento define los requerimientos no funcionales del sistema propuesto para la gestion
+administrativa y comercial de una PyME generica. Estos requerimientos describen condiciones de
+calidad, seguridad, rendimiento, mantenimiento e integridad que debe cumplir la solucion.
+
+
+2. Requerimientos no funcionales
+--------------------------------
+
+RNF-01 - Integridad de datos
+Prioridad: Alta
+Descripcion:
+La base de datos debe asegurar la integridad de la informacion mediante claves primarias, claves
+foraneas, restricciones UNIQUE, restricciones CHECK y valores DEFAULT.
+Justificacion:
+Permite evitar registros huerfanos, duplicados, estados inconsistentes e importes invalidos.
+
+RNF-02 - Consistencia de nombres
+Prioridad: Alta
+Descripcion:
+Los nombres de tablas, columnas, restricciones y scripts deben ser claros, consistentes y
+coherentes con el dominio de una PyME generica.
+Justificacion:
+Facilita la lectura, mantenimiento y defensa del proyecto.
+
+RNF-03 - Seguridad basica de acceso
+Prioridad: Media
+Descripcion:
+La solucion debe contemplar usuarios, roles y estados de usuario para representar un control
+basico de acceso y responsabilidad operativa.
+Tablas relacionadas:
+USUARIOS, ROLES, ESTADOS_USUARIOS.
+
+RNF-04 - Trazabilidad
+Prioridad: Media
+Descripcion:
+El sistema debe permitir registrar acciones relevantes mediante auditoria, indicando usuario,
+fecha, accion y detalle.
+Tabla relacionada:
+AUDITORIA_FACTURA.
+
+RNF-05 - Rendimiento
+Prioridad: Media
+Descripcion:
+La base debe permitir pruebas de rendimiento mediante indices de optimizacion sobre campos usados
+en filtros, joins, fechas, estados, clientes, productos y pagos.
+Ubicacion relacionada:
+07_Pruebas_Optimizacion/Indices_y_Rendimiento.
+
+RNF-06 - Mantenibilidad
+Prioridad: Alta
+Descripcion:
+El codigo SQL debe estar organizado por carpetas y por responsabilidad: modelo fisico, datos de
+prueba, CRUD, funciones, subconsultas, procedimientos, validaciones y optimizacion.
+Justificacion:
+Permite comprender y modificar el proyecto sin mezclar etapas.
+
+RNF-07 - Recuperabilidad y reinicio controlado
+Prioridad: Media
+Descripcion:
+El proyecto debe incluir scripts que permitan limpiar o reiniciar la base respetando el orden de
+dependencias entre tablas.
+Ubicacion relacionada:
+04_SQLServer_Modelo_Fisico/01_Creacion_de_tablas/Reiniciar_a_cero_la_base.sql.
+
+RNF-08 - Compatibilidad con SQL Server
+Prioridad: Alta
+Descripcion:
+Todos los scripts deben ser compatibles con SQL Server y ejecutarse sobre la base BaseDeDatos_PyME.
+Justificacion:
+El motor definido para el proyecto es SQL Server.
+
+RNF-09 - Portabilidad controlada entre equipos
+Prioridad: Media
+Descripcion:
+El proyecto debe contemplar scripts de creacion de base adaptados a las rutas locales usadas en
+las computadoras de trabajo, como DELL y LENOVO.
+Ubicacion relacionada:
+04_SQLServer_Modelo_Fisico/00_Crear_Base_Datos.
+
+RNF-10 - Claridad documental
+Prioridad: Alta
+Descripcion:
+La estructura de carpetas, los diagramas, los requerimientos, las reglas de negocio y la
+documentacion final deben estar escritos de forma clara para facilitar la presentacion y defensa.
+Justificacion:
+El proyecto debe ser comprensible tanto para el equipo como para el docente.
+
+RNF-11 - Escalabilidad conceptual
+Prioridad: Media
+Descripcion:
+El modelo debe permitir futuras ampliaciones, como gestion de proveedores, compras, control de
+stock avanzado, interfaz de usuario o integraciones externas.
+Justificacion:
+Aunque esas funciones no forman parte del alcance inicial, la estructura debe poder crecer.
+
+RNF-12 - Validabilidad
+Prioridad: Alta
+Descripcion:
+La solucion debe incluir scripts de validacion para comprobar que los objetos de la base y las
+operaciones principales funcionan correctamente.
+Ubicacion relacionada:
+07_Pruebas_Optimizacion/Validaciones.
+
+RNF-13 - Legibilidad de diagramas
+Prioridad: Alta
+Descripcion:
+Los diagramas de procesos y casos de uso deben ser simples, legibles y coherentes con la
+problematica, los requerimientos y el modelo de datos.
+Justificacion:
+Los diagramas se utilizan como apoyo en la asignatura de Analisis de Sistemas.
+
+RNF-14 - Separacion entre analisis y modelado de datos
+Prioridad: Alta
+Descripcion:
+Los documentos de analisis de requerimientos, procesos y casos de uso deben ubicarse en
+02_Analisis_Requerimientos. El modelado de datos debe mantenerse en 03_Modelado.
+Justificacion:
+Evita mezclar UML funcional y procesos de negocio con DER, modelo conceptual y modelo logico.
+
+
+3. Conclusion
+-------------
+
+Los requerimientos no funcionales definidos aseguran que la solucion no solo cumpla con las
+funciones esperadas, sino que tambien sea ordenada, mantenible, verificable, coherente y adecuada
+para la presentacion academica del proyecto.

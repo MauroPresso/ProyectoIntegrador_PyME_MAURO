@@ -1,0 +1,231 @@
+ESPECIFICACION DE CASOS DE USO - PyME GENERICA
+==============================================
+
+Proyecto: ProyectoIntegrador_PyME_MAURO
+Carpeta: 02_Analisis_Requerimientos/Casos_De_Uso
+Base de datos: BaseDeDatos_PyME
+
+
+1. Objetivo del documento
+-------------------------
+
+Este documento especifica los casos de uso principales del sistema propuesto para una PyME
+generica. El diagrama asociado es:
+
+Diagrama_Casos_De_Uso_PyME.png
+
+Los casos de uso se ubican en 02_Analisis_Requerimientos porque describen funcionalidades y
+actores del sistema. No pertenecen a 03_Modelado, ya que esa carpeta se reserva para el modelado
+de datos.
+
+
+2. Actores
+----------
+
+ACT-01 - Usuario administrativo
+Descripcion:
+Persona interna de la PyME que registra clientes, productos/servicios, facturas, pagos,
+descuentos, recargos y consulta informacion operativa.
+
+ACT-02 - Administrador
+Descripcion:
+Usuario con mayores permisos. Puede administrar usuarios y roles, consultar auditoria y supervisar
+reportes y operaciones.
+
+ACT-03 - Cliente
+Descripcion:
+Persona fisica o juridica que solicita productos o servicios, aporta sus datos para la facturacion
+y realiza pagos. No necesariamente utiliza el sistema directamente, pero participa en el proceso.
+
+
+3. Casos de uso principales
+---------------------------
+
+CU-01 - Gestionar clientes
+Actor principal:
+Usuario administrativo.
+Actores secundarios:
+Administrador, Cliente.
+Descripcion:
+Permite registrar, consultar, modificar o cambiar el estado de clientes.
+Precondiciones:
+Deben existir catalogos de tipos de cliente, tipos de documento, estados de cliente y localidades.
+Flujo basico:
+1. El usuario ingresa o busca datos del cliente.
+2. El sistema valida documento, tipo de persona y datos obligatorios.
+3. El sistema registra o actualiza la informacion.
+4. El usuario confirma la operacion.
+Postcondiciones:
+El cliente queda registrado o actualizado en CLIENTES.
+Tablas relacionadas:
+CLIENTES, TIPOS_CLIENTE, TIPOS_DOCUMENTO, ESTADOS_CLIENTES, LOCALIDADES, PROVINCIAS.
+
+CU-02 - Gestionar productos y servicios
+Actor principal:
+Usuario administrativo.
+Actores secundarios:
+Administrador.
+Descripcion:
+Permite registrar, consultar, modificar o inactivar productos y servicios.
+Precondiciones:
+Deben existir categorias e impuestos.
+Flujo basico:
+1. El usuario ingresa datos del producto o servicio.
+2. El sistema valida categoria, impuesto, precio y stock.
+3. El sistema registra o actualiza el producto o servicio.
+Postcondiciones:
+El producto o servicio queda disponible para facturacion.
+Tablas relacionadas:
+PRODUCTOS_SERVICIOS, CATEGORIAS_PRODUCTO, IMPUESTOS.
+
+CU-03 - Emitir factura
+Actor principal:
+Usuario administrativo.
+Actores secundarios:
+Cliente.
+Descripcion:
+Permite registrar una factura asociada a un cliente, un usuario, un estado, un tipo de factura, un
+tipo de operacion y sus detalles.
+Precondiciones:
+Debe existir el cliente, el usuario, los productos/servicios y los catalogos de facturacion.
+Flujo basico:
+1. El usuario selecciona el cliente.
+2. El usuario selecciona productos o servicios.
+3. El sistema registra cantidades, precios e impuestos.
+4. El sistema calcula totales.
+5. El sistema genera la factura.
+Postcondiciones:
+La factura y sus detalles quedan registrados.
+Tablas relacionadas:
+FACTURAS, DETALLES_FACTURA, CLIENTES, USUARIOS, PRODUCTOS_SERVICIOS, ESTADOS_FACTURA,
+TIPOS_FACTURA, TIPOS_OPERACION_FACTURA.
+
+CU-04 - Registrar pago
+Actor principal:
+Usuario administrativo.
+Actores secundarios:
+Cliente.
+Descripcion:
+Permite registrar un comprobante de pago asociado a una factura.
+Precondiciones:
+Debe existir la factura y la forma de pago.
+Flujo basico:
+1. El usuario busca la factura.
+2. El usuario ingresa forma de pago, monto y referencia.
+3. El sistema valida que el monto sea positivo.
+4. El sistema registra el comprobante de pago.
+Postcondiciones:
+El pago queda asociado a la factura.
+Tablas relacionadas:
+COMPROBANTES_PAGO, FACTURAS, FORMAS_PAGO.
+
+CU-05 - Gestionar descuentos y recargos
+Actor principal:
+Usuario administrativo.
+Actores secundarios:
+Administrador.
+Descripcion:
+Permite registrar descuentos o recargos asociados a una factura.
+Precondiciones:
+Debe existir la factura.
+Flujo basico:
+1. El usuario selecciona la factura.
+2. El usuario ingresa descripcion, porcentaje y/o monto.
+3. El sistema valida valores positivos o no negativos segun corresponda.
+4. El sistema registra el descuento o recargo.
+Postcondiciones:
+El descuento o recargo queda vinculado a la factura.
+Tablas relacionadas:
+DESCUENTOS_FACTURA, RECARGOS_FACTURA, FACTURAS.
+
+CU-06 - Consultar reportes
+Actor principal:
+Usuario administrativo.
+Actores secundarios:
+Administrador.
+Descripcion:
+Permite consultar informacion administrativa y comercial, como facturas por estado, ventas por
+periodo, productos facturados, pagos y clientes.
+Precondiciones:
+Deben existir datos registrados.
+Flujo basico:
+1. El usuario selecciona el tipo de consulta o reporte.
+2. El sistema ejecuta la consulta correspondiente.
+3. El sistema muestra los resultados.
+Postcondiciones:
+El usuario obtiene informacion para control y toma de decisiones.
+Tablas relacionadas:
+FACTURAS, DETALLES_FACTURA, CLIENTES, PRODUCTOS_SERVICIOS, COMPROBANTES_PAGO.
+
+CU-07 - Administrar usuarios y roles
+Actor principal:
+Administrador.
+Descripcion:
+Permite gestionar usuarios internos, roles y estados de usuario.
+Precondiciones:
+Deben existir roles y estados de usuario.
+Flujo basico:
+1. El administrador ingresa o modifica datos de usuario.
+2. El sistema valida nombre de usuario, email, rol y estado.
+3. El sistema registra o actualiza la informacion.
+Postcondiciones:
+El usuario queda registrado o actualizado.
+Tablas relacionadas:
+USUARIOS, ROLES, ESTADOS_USUARIOS.
+
+CU-08 - Auditar operaciones
+Actor principal:
+Administrador.
+Actores secundarios:
+Usuario administrativo.
+Descripcion:
+Permite registrar o consultar acciones relevantes asociadas a facturas.
+Precondiciones:
+Debe existir factura y usuario asociado.
+Flujo basico:
+1. El sistema o usuario registra una accion relevante.
+2. Se guarda usuario, factura, accion, fecha y detalle.
+3. El administrador puede consultar la auditoria.
+Postcondiciones:
+La accion queda trazada para control interno.
+Tablas relacionadas:
+AUDITORIA_FACTURA, FACTURAS, USUARIOS.
+
+CU-09 - Ejecutar validaciones del sistema
+Actor principal:
+Administrador.
+Descripcion:
+Permite ejecutar scripts para validar tablas, datos, consultas, CRUD, procedimientos e indices.
+Precondiciones:
+La base debe estar creada y cargada con datos iniciales.
+Flujo basico:
+1. El administrador ejecuta los scripts de validacion.
+2. El sistema devuelve resultados de control.
+3. Se corrigen errores si se detectan inconsistencias.
+Postcondiciones:
+El proyecto queda validado para entrega o presentacion.
+Ubicacion relacionada:
+07_Pruebas_Optimizacion.
+
+
+4. Relacion con requerimientos funcionales
+------------------------------------------
+
+Los casos de uso se relacionan con los requerimientos funcionales del proyecto:
+
+- CU-01 se relaciona con RF-01, RF-02, RF-03 y RF-04.
+- CU-02 se relaciona con RF-05, RF-06 y RF-07.
+- CU-03 se relaciona con RF-08 y RF-09.
+- CU-04 se relaciona con RF-10.
+- CU-05 se relaciona con RF-11 y RF-12.
+- CU-06 se relaciona con RF-13.
+- CU-07 se relaciona con RF-14.
+- CU-08 se relaciona con RF-15.
+- CU-09 se relaciona con RF-17.
+
+
+5. Conclusion
+-------------
+
+Los casos de uso definidos cubren las funcionalidades principales necesarias para resolver la
+problematica de la PyME y se mantienen coherentes con la estructura de la base BaseDeDatos_PyME.
