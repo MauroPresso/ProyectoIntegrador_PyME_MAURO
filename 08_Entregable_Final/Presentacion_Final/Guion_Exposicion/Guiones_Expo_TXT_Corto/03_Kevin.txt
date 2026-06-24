@@ -1,0 +1,35 @@
+GUION DE EXPOSICION - KEVIN OUVIÑA
+Rol: Pro-Developer
+
+OBJETIVO DE MI PARTICIPACION
+----------------------------
+Como Pro-Developer, mi parte se enfoca en explicar el diseño de la base de datos: modelado conceptual, logico, DER, normalizacion, implementacion fisica y restricciones.
+
+GUION
+-----
+
+A partir de los requerimientos definidos, avanzamos con el modelado de datos.
+
+Primero trabajamos el modelo conceptual, identificando las entidades principales del dominio. Entre ellas estan Clientes, Tipos de Cliente, Tipos de Documento, Localidades, Provincias, Usuarios, Roles, Productos y Servicios, Categorias, Impuestos, Facturas, Detalles de Factura, Comprobantes de Pago, Descuentos, Recargos y Auditoria.
+
+Luego pasamos al modelo logico, donde esas entidades se transforman en tablas con atributos, claves primarias y relaciones. El objetivo fue representar la informacion de manera ordenada y evitar redundancias innecesarias.
+
+Tambien se elaboro el Diagrama Entidad-Relacion, que permite ver visualmente como se conectan las tablas. Por ejemplo, un cliente pertenece a una localidad, una factura pertenece a un cliente, una factura puede tener varios detalles, y cada detalle se relaciona con un producto o servicio.
+
+En la normalizacion aplicamos los criterios de primera, segunda y tercera forma normal. En la primera forma normal evitamos grupos repetidos y nos aseguramos de que los datos sean atomicos. En la segunda forma normal evitamos dependencias parciales. En la tercera forma normal evitamos dependencias transitivas. Un ejemplo claro es separar localidades y provincias de clientes, para no repetir datos geograficos y evitar problemas de actualizacion.
+
+Luego implementamos el modelo fisico en SQL Server. La base se denomina BaseDeDatos_PyME. En los scripts se crean las tablas, las claves primarias, las claves foraneas, las restricciones y los indices necesarios.
+
+Las restricciones de integridad cumplen un rol central. Las claves primarias aseguran que cada registro sea unico. Las claves foraneas aseguran que las relaciones entre tablas sean validas. Las restricciones UNIQUE evitan duplicados. Las restricciones CHECK permiten validar reglas simples, como importes no negativos o cantidades mayores a cero. Los valores DEFAULT ayudan a establecer estados iniciales controlados.
+
+Esta estructura permite que la base no dependa solamente de la carga correcta del usuario, sino que el propio motor de SQL Server ayude a proteger la integridad de los datos.
+
+Con esto queda explicada la base estructural del sistema. Ahora Mauro va a mostrar como se prueba y se utiliza mediante CRUD, consultas, funciones, procedimientos y optimizacion.
+
+PUNTOS CLAVE PARA RECORDAR
+--------------------------
+- Explicar entidades principales.
+- Mencionar relaciones importantes: cliente-factura, factura-detalle, detalle-producto.
+- Normalizacion: 1FN, 2FN y 3FN.
+- SQL Server: BaseDeDatos_PyME.
+- Restricciones: PK, FK, UNIQUE, CHECK, DEFAULT.

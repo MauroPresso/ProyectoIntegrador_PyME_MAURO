@@ -1,0 +1,37 @@
+GUION DE EXPOSICION - PABLO RUIZ DIAZ
+Rol: Product Owner
+
+OBJETIVO DE MI PARTICIPACION
+----------------------------
+Como Product Owner, mi parte se centra en explicar la necesidad del negocio, la problematica detectada, los procesos de negocio y los requerimientos que debia cumplir el sistema.
+
+GUION
+-----
+
+La problematica principal que detectamos en la PyME fue la falta de centralizacion de la informacion administrativa y comercial.
+
+En una situacion inicial, la empresa podia manejar datos en planillas, registros manuales o archivos separados. Esto genera problemas como duplicacion de informacion, dificultad para consultar datos confiables, falta de control sobre facturas y pagos, y poca trazabilidad sobre las operaciones.
+
+Por eso, el proceso de negocio que tomamos como referencia fue el proceso de venta, facturacion y cobro en la PyME. Este proceso se represento en dos versiones: AS-IS y TO-BE.
+
+En el AS-IS mostramos la situacion actual, donde el cliente realiza una solicitud, el personal administrativo consulta disponibilidad y precio, y la informacion se registra en planillas o archivos dispersos. Esta situacion permite entender el problema: hay tareas manuales, registros separados y mayor riesgo de errores.
+
+En el TO-BE mostramos la situacion mejorada con soporte del Sistema de Gestion PyME y la base BaseDeDatos_PyME. En este escenario, la informacion se carga en el sistema, se consultan clientes y productos, se genera la factura, se registra el pago, se actualiza el estado y queda trazabilidad de la operacion.
+
+A partir de ese analisis definimos requerimientos funcionales. Entre los principales estan: gestionar clientes, gestionar productos y servicios, emitir facturas, registrar detalles de factura, registrar pagos, consultar reportes, administrar usuarios y auditar operaciones.
+
+Tambien definimos requerimientos no funcionales, como integridad de datos, seguridad basica mediante usuarios y roles, trazabilidad, mantenibilidad y rendimiento adecuado en consultas relevantes.
+
+En los casos de uso, los actores principales son el Usuario administrativo y el Administrador. El Cliente participa en el proceso de negocio aportando datos y pago, pero no se lo modelo como actor principal si no interactua directamente con el sistema. Esto respeta el criterio de Analisis de Sistemas: un caso de uso representa una funcionalidad vista desde los actores que usan el sistema, no desde las tablas ni desde el codigo.
+
+Con esto queda claro que el sistema no se diseño solamente como un conjunto de tablas, sino como una solucion que responde a una necesidad concreta de negocio.
+
+Ahora continua Kevin, explicando como se llevo esta necesidad al modelado de datos y a la estructura de la base.
+
+PUNTOS CLAVE PARA RECORDAR
+--------------------------
+- Problema: informacion dispersa y falta de trazabilidad.
+- Proceso principal: venta, facturacion y cobro.
+- AS-IS: situacion manual/dispersa.
+- TO-BE: sistema centralizado con BaseDeDatos_PyME.
+- Casos de uso: funcionalidades vistas desde los actores.

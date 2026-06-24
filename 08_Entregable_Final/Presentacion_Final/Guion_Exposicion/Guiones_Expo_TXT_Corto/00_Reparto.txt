@@ -1,0 +1,71 @@
+GUION GENERAL - ORDEN Y REPARTO EQUITATIVO
+ProyectoIntegrador_PyME_MAURO
+Presentacion final - Sistema de Gestion PyME
+
+OBJETIVO DEL REPARTO
+--------------------
+El reparto busca que todos los integrantes participen de manera equilibrada, respetando el rol de cada uno dentro del equipo:
+
+- Juan Alvarez: Scrum Master.
+- Pablo Ruiz Diaz: Product Owner.
+- Kevin Ouviña: Pro-Developer.
+- Mauro Presso: Pro-Developer.
+
+ORDEN SUGERIDO DE EXPOSICION
+----------------------------
+
+1) Juan Alvarez - Scrum Master
+   Diapositivas sugeridas:
+   - Portada.
+   - Contenido del proyecto.
+   - Organizacion del trabajo.
+   - Gestion del proyecto.
+
+   Enfoque:
+   Presentar al equipo, explicar la organizacion general, el uso de Trello/GitHub y el orden de defensa.
+
+2) Pablo Ruiz Diaz - Product Owner
+   Diapositivas sugeridas:
+   - Problematica y contexto.
+   - Procesos de negocio AS-IS y TO-BE.
+   - Requerimientos del sistema.
+   - Casos de uso.
+
+   Enfoque:
+   Explicar la necesidad de la PyME, que problema se resolvio y que funcionalidades debia cubrir el sistema.
+
+3) Kevin Ouviña - Pro-Developer
+   Diapositivas sugeridas:
+   - Modelado conceptual, logico y DER.
+   - Normalizacion.
+   - Implementacion en SQL Server.
+   - Restricciones de integridad.
+
+   Enfoque:
+   Explicar la estructura de datos, las entidades principales, las relaciones, las formas normales y la implementacion fisica.
+
+4) Mauro Presso - Pro-Developer
+   Diapositivas sugeridas:
+   - CRUD.
+   - Funciones, subconsultas y procedimientos.
+   - Pruebas, validaciones y optimizacion.
+   - Organizacion final del repositorio.
+   - Conclusiones.
+
+   Enfoque:
+   Explicar el funcionamiento practico del sistema, los scripts, las pruebas realizadas, la optimizacion y el cierre tecnico.
+
+TIEMPO SUGERIDO
+---------------
+Si la exposicion dura entre 12 y 16 minutos:
+
+- Juan: 3 a 4 minutos.
+- Pablo: 3 a 4 minutos.
+- Kevin: 3 a 4 minutos.
+- Mauro: 3 a 4 minutos.
+
+CIERRE GENERAL
+--------------
+Al finalizar, cualquiera de los integrantes puede reforzar la idea principal:
+
+"El proyecto permitio transformar una problematica administrativa de una PyME en una solucion de base de datos relacional organizada, validada y documentada, usando SQL Server, GitHub y una metodologia de trabajo colaborativa."

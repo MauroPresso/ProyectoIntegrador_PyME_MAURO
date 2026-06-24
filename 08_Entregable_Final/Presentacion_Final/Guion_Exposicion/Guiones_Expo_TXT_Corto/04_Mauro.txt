@@ -1,0 +1,36 @@
+GUION DE EXPOSICION - MAURO PRESSO
+Rol: Pro-Developer
+
+OBJETIVO DE MI PARTICIPACION
+----------------------------
+Como Pro-Developer, mi parte se enfoca en explicar la funcionalidad practica de la base: scripts CRUD, consultas, funciones, procedimientos almacenados, pruebas, optimizacion y organizacion final del repositorio.
+
+GUION
+-----
+
+Una vez creado el modelo fisico, desarrollamos los scripts necesarios para probar que la base funcione correctamente.
+
+Primero trabajamos las operaciones CRUD. CRUD significa Create, Read, Update y Delete. En el proyecto esto se separo en carpetas especificas: insert para altas, select para consultas, update para modificaciones y delete o baja logica para eliminaciones o desactivaciones segun corresponda.
+
+Estos scripts permiten demostrar operaciones sobre clientes, productos y servicios, facturas, detalles de factura, pagos y reportes. La idea es que no quede solo el diseño de las tablas, sino tambien ejemplos concretos de uso del sistema.
+
+Despues incorporamos funciones y subconsultas. Se trabajaron funciones de cadena como LTRIM y RTRIM, funciones de fecha como GETDATE y DATEDIFF, y subconsultas para obtener informacion mas elaborada. Esto permite consultar datos utiles para la administracion, como facturas por estado, reportes de ventas o analisis por clientes.
+
+Tambien se desarrollaron procedimientos almacenados. Los procedimientos ayudan a encapsular operaciones importantes y reutilizar logica SQL. Esto hace que el proyecto sea mas ordenado y mas facil de mantener.
+
+Luego realizamos pruebas y validaciones. En la carpeta de pruebas se incluyeron scripts para verificar la existencia de la base, las tablas principales, los datos iniciales, el funcionamiento del CRUD, las consultas y los procedimientos almacenados.
+
+Tambien se trabajo la optimizacion mediante indices. Los indices permiten mejorar consultas frecuentes, como busquedas por cliente, fechas, estados de factura o detalles por producto. No solamente se crearon indices, sino que se organizaron pruebas para poder activarlos, desactivarlos y comparar su impacto.
+
+Por ultimo, el repositorio quedo organizado por etapas: documentacion, gestion Trello, analisis de requerimientos, modelado, modelo fisico SQL Server, CRUD, funciones y subconsultas, pruebas y entregable final. Esto facilita la correccion y tambien la defensa, porque cada carpeta responde a una parte del proyecto.
+
+Como conclusion, el proyecto nos permitio pasar de una problematica administrativa de una PyME a una base de datos relacional organizada, implementada y probada. La solucion centraliza informacion, reduce duplicaciones, mejora la trazabilidad y deja una base solida para futuras ampliaciones.
+
+PUNTOS CLAVE PARA RECORDAR
+--------------------------
+- CRUD separado por responsabilidad.
+- Funciones y subconsultas aplicadas al modelo real.
+- Procedimientos almacenados para reutilizar logica.
+- Pruebas de validacion y optimizacion.
+- Repositorio organizado de 00 a 08.
+- Cierre: base centralizada, trazable y extensible.

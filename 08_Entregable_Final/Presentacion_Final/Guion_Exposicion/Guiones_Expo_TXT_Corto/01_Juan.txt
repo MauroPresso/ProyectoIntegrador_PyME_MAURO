@@ -1,0 +1,30 @@
+GUION DE EXPOSICION - JUAN ALVAREZ
+Rol: Scrum Master
+
+OBJETIVO DE MI PARTICIPACION
+----------------------------
+Como Scrum Master, mi parte se enfoca en presentar el proyecto, explicar la organizacion del equipo y mostrar como se coordino el trabajo para llegar a una entrega ordenada.
+
+GUION
+-----
+
+Buenos dias / buenas tardes. Vamos a presentar el Proyecto Integrador de Base de Datos, titulado Sistema de Gestion PyME.
+
+El objetivo del trabajo fue diseñar e implementar una base de datos relacional para una PyME generica, capaz de organizar informacion de clientes, productos y servicios, facturacion, pagos, usuarios, reportes y auditoria.
+
+El equipo estuvo organizado con roles definidos. En mi caso, participe como Scrum Master, encargado de ayudar a ordenar el trabajo, controlar avances y acompañar la coordinacion general del grupo. Pablo trabajo como Product Owner, interpretando la necesidad del negocio y los requerimientos. Kevin y Mauro participaron como Pro-Developers, desarrollando el modelado, los scripts SQL, las pruebas y la documentacion tecnica.
+
+La defensa esta organizada siguiendo el recorrido del proyecto. Primero se presenta la problematica de la PyME, luego los requerimientos, los procesos de negocio, el modelado de datos, la implementacion fisica en SQL Server, las operaciones CRUD, las pruebas y finalmente la organizacion del repositorio y las conclusiones.
+
+Desde la gestion del proyecto usamos herramientas colaborativas. Trello nos permitio organizar las tareas por etapas y visualizar el avance. GitHub se uso para versionar el repositorio, mantener los scripts ordenados y registrar los cambios. Tambien se utilizaron canales de comunicacion del equipo para coordinar dudas, correcciones y entregas.
+
+El valor de esta organizacion fue que cada parte del proyecto quedo separada en carpetas coherentes: documentacion, gestion Trello, analisis de requerimientos, modelado, SQL Server, CRUD, funciones, pruebas y entregable final. Esto facilita que cualquier docente o integrante pueda recorrer el proyecto y entender que se hizo en cada etapa.
+
+Con esta introduccion, le doy paso a Pablo, que va a explicar la problematica de la PyME y los requerimientos que dieron origen al sistema.
+
+PUNTOS CLAVE PARA RECORDAR
+--------------------------
+- Presentar al equipo y roles.
+- Explicar que el proyecto resuelve una necesidad administrativa de una PyME.
+- Mencionar Trello y GitHub como herramientas de organizacion.
+- Destacar que el repositorio quedo ordenado por etapas.
